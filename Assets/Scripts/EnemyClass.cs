@@ -24,4 +24,10 @@ public class EnemyClass
     {
         return goldRewarded;
     }
+    public void AssignLevel(int level)
+    {
+        this.level = level;
+        health = 5 + level * 2;
+        goldRewarded = 5 + level * 2;
+    }
 }

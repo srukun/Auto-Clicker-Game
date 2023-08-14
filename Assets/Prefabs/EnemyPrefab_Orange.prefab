@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 466244339360387114}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -363,7 +363,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7275237015932620655}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -473,9 +473,10 @@ MonoBehaviour:
   - {fileID: 7867430275769432697}
   originalHealth: 0
   pixelHeartExplosionEffect: {fileID: 7600542231335257498, guid: 3dc953922050e1c4fa72c42f7fa7fd05, type: 3}
-  orangeExplosionEffect: {fileID: 4459511682963288070, guid: 7c3c870069011354dad87d5b9f9155ad, type: 3}
+  enemyExplosionEffect: {fileID: 4459511682963288070, guid: 7c3c870069011354dad87d5b9f9155ad, type: 3}
   flashEffect: {fileID: 466244339360387114}
   flashEffectTimer: 0
+  SceneObject_ArenaManager: {fileID: 0}
 --- !u!61 &3210230502655079378
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -500,7 +501,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.65, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &7867430275769432697
 GameObject:

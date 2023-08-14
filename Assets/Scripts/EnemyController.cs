@@ -8,9 +8,10 @@ public class EnemyController : MonoBehaviour
     public GameObject[] hearts;
     public int originalHealth;
     public GameObject pixelHeartExplosionEffect;
-    public GameObject orangeExplosionEffect;
+    public GameObject enemyExplosionEffect;
     public GameObject flashEffect;
     public float flashEffectTimer;
+    public GameObject SceneObject_ArenaManager;
     void Start()
     {
         originalHealth = thisEnemy.health; 
@@ -22,9 +23,13 @@ public class EnemyController : MonoBehaviour
     }
     public void KillThisEnemy()
     {
-        if(thisEnemy.enemyName == "Orange")
+        GameObject SceneObject_OrangeExplosion = Instantiate(enemyExplosionEffect, transform.position, transform.rotation);
+
+        SceneObject_ArenaManager.GetComponent<ArenaManager>().IncreaseEarnedGold(thisEnemy.goldRewarded);
+        SceneObject_ArenaManager.GetComponent<ArenaManager>().enemiesRemaining--;
+        if(SceneObject_ArenaManager.GetComponent<ArenaManager>().enemiesRemaining <= 0)
         {
-            GameObject SceneObject_OrangeExplosion = Instantiate(orangeExplosionEffect, transform.position, transform.rotation);
+            SceneObject_ArenaManager.GetComponent<ArenaManager>().signalActive = true;
         }
         Destroy(gameObject);
     }
@@ -37,7 +42,7 @@ public class EnemyController : MonoBehaviour
         if (!flashEffect.activeInHierarchy)
         {
             flashEffect.SetActive(true);
-            flashEffectTimer = 0.05f;
+            flashEffectTimer = 0.07f;
         }
 
     }

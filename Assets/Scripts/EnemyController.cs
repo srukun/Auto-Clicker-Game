@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -12,8 +13,30 @@ public class EnemyController : MonoBehaviour
     public GameObject flashEffect;
     public float flashEffectTimer;
     public GameObject SceneObject_ArenaManager;
+
+    public GameObject SceneObj_Canvas;
+    public GameObject enemyInformationTextPrefab;
+    public GameObject SceneObj_EnemyInformationText;
+    public int spawnCode;
     void Start()
     {
+        SceneObj_EnemyInformationText = Instantiate(enemyInformationTextPrefab);
+        SceneObj_EnemyInformationText.transform.SetParent(SceneObj_Canvas.transform, false);
+        if (spawnCode == 1)
+        {
+            SceneObj_EnemyInformationText.transform.localPosition = new Vector3(0, 35, 0);
+            SceneObj_EnemyInformationText.GetComponent<TextMeshProUGUI>().SetText(thisEnemy.enemyName + "\nLv. " + thisEnemy.level);
+        }
+        else if (spawnCode == 0)
+        {
+            SceneObj_EnemyInformationText.transform.localPosition = new Vector3(-115, 35, 0);
+            SceneObj_EnemyInformationText.GetComponent<TextMeshProUGUI>().SetText(thisEnemy.enemyName + "\nLv. " + thisEnemy.level);
+        }
+        else if (spawnCode == 2)
+        {
+            SceneObj_EnemyInformationText.transform.localPosition = new Vector3(115, 35, 0);
+            SceneObj_EnemyInformationText.GetComponent<TextMeshProUGUI>().SetText(thisEnemy.enemyName + "\nLv. " + thisEnemy.level);
+        }
         originalHealth = thisEnemy.health; 
     }
 
@@ -31,6 +54,7 @@ public class EnemyController : MonoBehaviour
         {
             SceneObject_ArenaManager.GetComponent<ArenaManager>().signalActive = true;
         }
+        Destroy(SceneObj_EnemyInformationText);
         Destroy(gameObject);
     }
     public void DamageEffect(int damage)

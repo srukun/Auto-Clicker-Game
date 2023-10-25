@@ -21,6 +21,9 @@ public class ArenaManager : MonoBehaviour
     public GameObject notificationText;
     public GameObject SceneObj_Canvas;
     public bool warningNotification;
+
+    public GameObject enemyInformationText;
+
     void Start()
     {
         signalActive = true;
@@ -36,6 +39,7 @@ public class ArenaManager : MonoBehaviour
     public void IncreaseEarnedGold(int gold)
     {
         goldEarned += gold;
+        DataManager.totalGold += gold;
         Text_GoldEarned.GetComponent<TextMeshProUGUI>().SetText(goldEarned + "");
     }
     public void SpawnDealyManager()
@@ -101,6 +105,9 @@ public class ArenaManager : MonoBehaviour
         GameObject SceneObject_Enemy = Instantiate(enemyPrefabs[enemyCode], spawnPoints[spawnCode].transform.position, Quaternion.identity);
         SceneObject_Enemy.GetComponent<EnemyController>().thisEnemy.AssignLevel(Random.Range(waveNumber, waveNumber + 2));
         SceneObject_Enemy.GetComponent<EnemyController>().SceneObject_ArenaManager = gameObject;
+        SceneObject_Enemy.GetComponent<EnemyController>().SceneObj_Canvas = SceneObj_Canvas;
+        SceneObject_Enemy.GetComponent<EnemyController>().enemyInformationTextPrefab = enemyInformationText;
+        SceneObject_Enemy.GetComponent<EnemyController>().spawnCode= spawnCode;
         enemiesRemaining++;
 
     }

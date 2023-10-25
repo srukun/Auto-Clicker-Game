@@ -16,12 +16,31 @@ public class KnifeController : MonoBehaviour
     public GameObject Prefab_DiamondKnife;
 
     public float shootTimer;
+    public SpriteRenderer knifeSprite;
+    public Sprite ironKnife;
+    public Sprite silverKnife;
+    public Sprite goldKnife;
+    public Sprite diamondKnife;
     void Start()
     {
+        if(DataManager.equipedKnife.knifeName == "Iron Knife")
+        {
+            knifeSprite.sprite = ironKnife;
+        }
+        else if (DataManager.equipedKnife.knifeName == "Silver Knife")
+        {
+            knifeSprite.sprite = silverKnife;
+        }
+        else if (DataManager.equipedKnife.knifeName == "Gold Knife")
+        {
+            knifeSprite.sprite = goldKnife;
+        }
+        else if (DataManager.equipedKnife.knifeName == "Diamond Knife")
+        {
+            knifeSprite.sprite = diamondKnife;
+        }
         equipedKnifePrefab = Prefab_BronzeKnife;
-        KnifeClass bronzeKnife = new KnifeClass("Bronze Knife", 1, 0, 15f, true, 2);
-        DataManager.knives.Add(bronzeKnife);
-        DataManager.equipedKnife = bronzeKnife;
+
     }
 
     
@@ -35,8 +54,26 @@ public class KnifeController : MonoBehaviour
         if (Input.GetButton("Fire1") && shootTimer <= 0) 
         {
             GameObject SceneObject_KnifeProjectile = Instantiate(equipedKnifePrefab, transform.position, aimTransform.rotation);
-            shootTimer = (float)1 / DataManager.equipedKnife.fireRate;
 
+            if (DataManager.equipedKnife.knifeName == "Iron Knife")
+            {
+                SceneObject_KnifeProjectile.GetComponent<SpriteRenderer>().sprite = ironKnife;
+            }
+            else if (DataManager.equipedKnife.knifeName == "Silver Knife")
+            {
+                SceneObject_KnifeProjectile.GetComponent<SpriteRenderer>().sprite = silverKnife;
+            }
+            else if (DataManager.equipedKnife.knifeName == "Gold Knife")
+            {
+                SceneObject_KnifeProjectile.GetComponent<SpriteRenderer>().sprite = goldKnife;
+            }
+            else if (DataManager.equipedKnife.knifeName == "Diamond Knife")
+            {
+                SceneObject_KnifeProjectile.GetComponent<SpriteRenderer>().sprite = diamondKnife;
+            }
+
+
+            shootTimer = (float)1 / DataManager.equipedKnife.fireRate;
             SceneObject_KnifeProjectile.GetComponent<Rigidbody2D>().AddForce(SceneObject_KnifeProjectile.transform.up * DataManager.equipedKnife.speed, ForceMode2D.Impulse);
             SceneObject_KnifeProjectile.GetComponent<KnifeProjectileScript>().thisKnife = DataManager.equipedKnife;
         }

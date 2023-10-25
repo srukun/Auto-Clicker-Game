@@ -6,9 +6,11 @@ public class DataManager : MonoBehaviour
 {
     public static List<KnifeClass> knives = new List<KnifeClass>();
     public static KnifeClass equipedKnife;
+    public static int totalGold;
     void Start()
     {
         
+
     }
 
     // Update is called once per frame
@@ -16,4 +18,5 @@ public class DataManager : MonoBehaviour
     {
         
     }
+    
 }

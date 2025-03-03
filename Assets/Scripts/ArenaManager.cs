@@ -24,17 +24,29 @@ public class ArenaManager : MonoBehaviour
 
     public GameObject enemyInformationText;
 
+    //Skins
+    public GameObject[] skins;
+
+    //Scene
+    public GameObject SceneObject_Camera;
     void Start()
     {
         signalActive = true;
         spawnDelayTimer = 2.5f;
         waveNumber++;
+        InitializePlayer();
     }
 
 
     void Update()
     {
         SpawnDealyManager();
+        
+    }
+    public void InitializePlayer()
+    {
+        GameObject player = Instantiate(skins[0], new Vector3(0, -2.65f, -1), Quaternion.identity);
+        player.GetComponentInChildren<KnifeController>().SceneObject_Camera = SceneObject_Camera;
     }
     public void IncreaseEarnedGold(int gold)
     {

@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     public GameObject enemyInformationTextPrefab;
     public GameObject SceneObj_EnemyInformationText;
     public int spawnCode;
+    public GameObject SceneObject_Hero;
+    public GameObject Prefab_Projectile;
     void Start()
     {
         SceneObj_EnemyInformationText = Instantiate(enemyInformationTextPrefab);
@@ -92,6 +94,13 @@ public class EnemyController : MonoBehaviour
         {
             hearts[1].SetActive(false);
             //GameObject SceneObject_HeartExplosion = Instantiate(pixelHeartExplosionEffect, hearts[1].transform.position, hearts[1].transform.rotation);
+        }
+    }
+    public void Attack()
+    {
+        if(SceneObject_Hero.GetComponent<HeroController>().hero.health > 0)
+        {
+
         }
     }
 }

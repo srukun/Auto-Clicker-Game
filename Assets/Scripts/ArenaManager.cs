@@ -23,7 +23,7 @@ public class ArenaManager : MonoBehaviour
     public bool warningNotification;
 
     public GameObject enemyInformationText;
-
+    public GameObject SceneObject_Hero;
     //Skins
     public GameObject[] skins;
 
@@ -45,8 +45,9 @@ public class ArenaManager : MonoBehaviour
     }
     public void InitializePlayer()
     {
-        GameObject player = Instantiate(skins[0], new Vector3(0, -2.65f, -1), Quaternion.identity);
-        player.GetComponentInChildren<KnifeController>().SceneObject_Camera = SceneObject_Camera;
+        GameObject heroObject = Instantiate(skins[0], new Vector3(0, -2.65f, -1), Quaternion.identity);
+        heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = SceneObject_Camera;
+        this.SceneObject_Hero = heroObject;
     }
     public void IncreaseEarnedGold(int gold)
     {
@@ -120,6 +121,7 @@ public class ArenaManager : MonoBehaviour
         SceneObject_Enemy.GetComponent<EnemyController>().SceneObj_Canvas = SceneObj_Canvas;
         SceneObject_Enemy.GetComponent<EnemyController>().enemyInformationTextPrefab = enemyInformationText;
         SceneObject_Enemy.GetComponent<EnemyController>().spawnCode= spawnCode;
+        SceneObject_Enemy.GetComponent<EnemyController>().SceneObject_Hero = this.SceneObject_Hero;
         enemiesRemaining++;
 
     }

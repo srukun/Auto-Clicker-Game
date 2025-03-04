@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class HeroController : MonoBehaviour
 {
     public Vector3 position;
+    public Hero hero;
+    
     void Start()
     {
         position = transform.position;

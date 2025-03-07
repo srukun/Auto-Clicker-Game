@@ -8,6 +8,8 @@ public class KnifeController : MonoBehaviour
     public Transform aimTransform;
     public Vector3 mousePosition;
     public Vector3 aimDirection;
+
+    //knives
     public GameObject equipedKnifePrefab;
     public GameObject Prefab_BronzeKnife;
     public GameObject Prefab_IronKnife;
@@ -21,6 +23,8 @@ public class KnifeController : MonoBehaviour
     public Sprite silverKnife;
     public Sprite goldKnife;
     public Sprite diamondKnife;
+
+    GameObject closestEnemy;
     void Start()
     {
         if(DataManager.equipedKnife.knifeName == "Iron Knife")
@@ -46,12 +50,12 @@ public class KnifeController : MonoBehaviour
     
     void FixedUpdate()
     {
-        Aim();
+        AimAtClosestEnemy();
         Shoot();
     }
     public void Shoot()
     {
-        if (Input.GetButton("Fire1") && shootTimer <= 0) 
+        if (shootTimer <= 0 && closestEnemy != null) 
         {
             GameObject SceneObject_KnifeProjectile = Instantiate(equipedKnifePrefab, transform.position, aimTransform.rotation);
 
@@ -83,11 +87,41 @@ public class KnifeController : MonoBehaviour
         }
 
     }
-    public void Aim()
+    /*    public void Aim()
+        {
+            mousePosition = SceneObject_Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+            aimDirection = (mousePosition - aimTransform.position).normalized;
+            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            aimTransform.eulerAngles = new Vector3(0, 0, angle - 90);
+        }*/
+    public void AimAtClosestEnemy()
     {
-        mousePosition = SceneObject_Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-        aimDirection = (mousePosition - aimTransform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        aimTransform.eulerAngles = new Vector3(0, 0, angle - 90);
+        GameObject closestEnemy = FindClosestEnemy();
+        if (closestEnemy != null)
+        {
+            Vector3 direction = (closestEnemy.transform.position - aimTransform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            aimTransform.eulerAngles = new Vector3(0, 0, angle - 90);
+        }
+    }
+
+    private GameObject FindClosestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+        Vector3 position = transform.position;
+
+        foreach (GameObject enemy in enemies)
+        {
+            float distance = Vector3.Distance(position, enemy.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
     }
 }

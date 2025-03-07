@@ -29,12 +29,20 @@ public class ArenaManager : MonoBehaviour
 
     //Scene
     public GameObject SceneObject_Camera;
+    public GameObject SceneObject_MapManager;
     void Start()
     {
         signalActive = true;
         spawnDelayTimer = 2.5f;
         waveNumber++;
+        SceneObject_MapManager.GetComponent<MapManager>().GenerateMap();
         InitializePlayer();
+
+        HeroController heroController = SceneObject_Hero.GetComponent<HeroController>();
+        MapManager mapManager = SceneObject_MapManager.GetComponent<MapManager>();
+        heroController.SetStartRoom(mapManager.GetStartRoom());
+
+        NewWave();
     }
 
 
@@ -45,7 +53,7 @@ public class ArenaManager : MonoBehaviour
     }
     public void InitializePlayer()
     {
-        GameObject heroObject = Instantiate(skins[0], new Vector3(0, -2.65f, -1), Quaternion.identity);
+        GameObject heroObject = Instantiate(skins[0], new Vector3(0, -2.65f, -2), Quaternion.identity);
         heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = SceneObject_Camera;
         this.SceneObject_Hero = heroObject;
     }
@@ -63,7 +71,7 @@ public class ArenaManager : MonoBehaviour
         }
         if(spawnDelayTimer <= 0)
         {
-            NewWave();
+            //NewWave();
             spawnDelayTimer = 2.5f;
             signalActive = false;
             warningNotification = false;
@@ -115,7 +123,8 @@ public class ArenaManager : MonoBehaviour
     }
     public void SpawnEnemy(int enemyCode, int spawnCode)
     {
-        GameObject SceneObject_Enemy = Instantiate(enemyPrefabs[enemyCode], spawnPoints[spawnCode].transform.position, Quaternion.identity);
+
+        GameObject SceneObject_Enemy = Instantiate(enemyPrefabs[enemyCode], spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
         SceneObject_Enemy.GetComponent<EnemyController>().thisEnemy.AssignLevel(Random.Range(waveNumber, waveNumber + 2));
         SceneObject_Enemy.GetComponent<EnemyController>().SceneObject_ArenaManager = gameObject;
         SceneObject_Enemy.GetComponent<EnemyController>().SceneObj_Canvas = SceneObj_Canvas;

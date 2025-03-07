@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6083777175786906039}
   - component: {fileID: 2690613716656837736}
   - component: {fileID: 4760829701308049743}
-  - component: {fileID: 1283034894282967105}
+  - component: {fileID: 8888522357805455604}
   m_Layer: 0
   m_Name: Nova_Prefab
   m_TagString: Untagged
@@ -107,7 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1283034894282967105
+--- !u!114 &8888522357805455604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

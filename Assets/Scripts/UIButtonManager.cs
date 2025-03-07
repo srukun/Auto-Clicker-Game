@@ -34,25 +34,25 @@ public class UIButtonManager : MonoBehaviour
     }
     public void LoadMenu()
     {
-        SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
     public void LoadLevel()
     {
-        SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
     public void LoadShop()
     {
-        SceneManager.LoadScene(2);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
 
     }
     public void LoadUpgrade()
     {
-        SceneManager.LoadScene(3);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
 
     }
     public void LoadFoodPedia()
     {
-        SceneManager.LoadScene(4);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
 
     }
 }

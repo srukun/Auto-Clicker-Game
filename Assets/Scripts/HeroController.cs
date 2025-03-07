@@ -10,11 +10,10 @@ public class HeroController : MonoBehaviour
     private RoomNode currentRoom;
     public GameObject SceneObject_ArenaManager;
 
-
     void Start()
     {
         position = transform.position;
-
+        
     }
 
     void Update()

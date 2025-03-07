@@ -50,11 +50,11 @@ public class EnemyController : MonoBehaviour
     {
         GameObject SceneObject_OrangeExplosion = Instantiate(enemyExplosionEffect, transform.position, transform.rotation);
 
-        SceneObject_ArenaManager.GetComponent<ArenaManager>().IncreaseEarnedGold(thisEnemy.goldRewarded);
-        SceneObject_ArenaManager.GetComponent<ArenaManager>().enemiesRemaining--;
-        if(SceneObject_ArenaManager.GetComponent<ArenaManager>().enemiesRemaining <= 0)
+        SceneObject_ArenaManager.GetComponent<SceneManager>().IncreaseEarnedGold(thisEnemy.goldRewarded);
+        SceneObject_ArenaManager.GetComponent<SceneManager>().enemiesRemaining--;
+        if(SceneObject_ArenaManager.GetComponent<SceneManager>().enemiesRemaining <= 0)
         {
-            SceneObject_ArenaManager.GetComponent<ArenaManager>().signalActive = true;
+            SceneObject_ArenaManager.GetComponent<SceneManager>().signalActive = true;
         }
         Destroy(SceneObj_EnemyInformationText);
         Destroy(gameObject);

@@ -308,7 +308,15 @@ MonoBehaviour:
   enemyExplosionEffect: {fileID: 9114966061366248734, guid: 39aad0c0039cef344be14d3a720f62a9, type: 3}
   flashEffect: {fileID: 3525872733798903201}
   flashEffectTimer: 0
-  SceneObject_ArenaManager: {fileID: 0}
+  sceneManager: {fileID: 0}
+  roomManager: {fileID: 0}
+  SceneObj_Canvas: {fileID: 0}
+  enemyInformationTextPrefab: {fileID: 0}
+  SceneObj_EnemyInformationText: {fileID: 0}
+  spawnCode: 0
+  heroSceneObject: {fileID: 0}
+  projectilePrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
+  moveDelayTimer: 0
 --- !u!61 &6662401908558424723
 BoxCollider2D:
   m_ObjectHideFlags: 0

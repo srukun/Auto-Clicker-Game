@@ -7,4 +7,11 @@ public class Hero
     public int maxHealth;
     public int health;
     public string ability;
+    public Hero()
+    {
+        name = "Storm";
+        maxHealth = 10;
+        health = 10;
+        ability = "Lighting Lance";
+    }
 }

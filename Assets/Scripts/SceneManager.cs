@@ -11,49 +11,57 @@ public class SceneManager : MonoBehaviour
 
 
     //Spawn Management
-    public GameObject[] enemyPrefabs;
-    public GameObject[] spawnPoints;
-    public int enemiesRemaining;
-    public int waveNumber;
+    public GameObject canvasObject;
 
-    public bool signalActive;
-    public float spawnDelayTimer;
-    public GameObject notificationText;
-    public GameObject SceneObj_Canvas;
-    public bool warningNotification;
 
-    public GameObject enemyInformationText;
-    public GameObject SceneObject_Hero;
+    public GameObject heroGameObject;
     //Skins
     public GameObject[] skins;
 
     //Scene
-    public GameObject SceneObject_Camera;
-    public GameObject SceneObject_MapManager;
+    public GameObject sceneCamera;
+    public GameObject mapManagerObject;
+    public RoomManager roomManager;
+
+    //Minimap
+    public GameObject mapObject;
+    public GameObject mapNodeObject;
+    public GameObject mapPlayerPoint;
+    //Map
+    public int[,] levelMap = new int[,]
+    {
+        {0, 0, 0, 3, 0},
+        {0, 0, 2, 2, 0},
+        {0, 0, 2, 0, 0},
+        {0, 0, 2, 0, 0},
+        {0, 2, 1, 0, 0}
+    };
+    public Vector2Int currentPosition;
+
     void Start()
     {
-        signalActive = true;
-        spawnDelayTimer = 2.5f;
-        waveNumber++;
-        SceneObject_MapManager.GetComponent<MapManager>().GenerateMap();
-        InitializePlayer();
+        SpawnHero();
+        AssignPosition();
 
-        HeroController heroController = SceneObject_Hero.GetComponent<HeroController>();
-        MapManager mapManager = SceneObject_MapManager.GetComponent<MapManager>();
-        heroController.SetStartRoom(mapManager.GetStartRoom());
-
+        roomManager.RoomSetUp();
     }
 
 
     void Update()
     {
-        
+
     }
-    public void InitializePlayer()
+    public HeroController GetHeroController()
     {
-        GameObject heroObject = Instantiate(skins[0], new Vector3(0, -2.65f, -2), Quaternion.identity);
-        heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = SceneObject_Camera;
-        this.SceneObject_Hero = heroObject;
+        HeroController heroController = heroGameObject.GetComponent<HeroController>();
+        return heroController;
+    }
+
+    public void SpawnHero()
+    {
+        GameObject heroObject = Instantiate(skins[0], new Vector3(0, 0, -2), Quaternion.identity);
+        heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = sceneCamera;
+        this.heroGameObject = heroObject;
     }
     public void IncreaseEarnedGold(int gold)
     {
@@ -61,19 +69,74 @@ public class SceneManager : MonoBehaviour
         DataManager.totalGold += gold;
         Text_GoldEarned.GetComponent<TextMeshProUGUI>().SetText(goldEarned + "");
     }
-
-
-    public void SpawnEnemy(int enemyCode, int spawnCode)
+    public void HideMinimap()
     {
+        mapObject.SetActive(false);
 
-        GameObject SceneObject_Enemy = Instantiate(enemyPrefabs[enemyCode], spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
-        SceneObject_Enemy.GetComponent<EnemyController>().thisEnemy.AssignLevel(Random.Range(waveNumber, waveNumber + 2));
-        SceneObject_Enemy.GetComponent<EnemyController>().SceneObject_ArenaManager = gameObject;
-        SceneObject_Enemy.GetComponent<EnemyController>().SceneObj_Canvas = SceneObj_Canvas;
-        SceneObject_Enemy.GetComponent<EnemyController>().enemyInformationTextPrefab = enemyInformationText;
-        SceneObject_Enemy.GetComponent<EnemyController>().spawnCode= spawnCode;
-        SceneObject_Enemy.GetComponent<EnemyController>().SceneObject_Hero = this.SceneObject_Hero;
-        enemiesRemaining++;
-
+        for (int i = mapObject.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(mapObject.transform.GetChild(i).gameObject);
+        }
     }
+    public void ViewMap()
+    {
+        if (mapObject.activeInHierarchy)
+        {
+            HideMinimap();
+        }
+        else
+        {
+            mapObject.SetActive(true);
+        }
+
+        int rows = levelMap.GetLength(0);
+        int cols = levelMap.GetLength(1);
+
+        Vector3 startPosition = new Vector3(-0.8f, 0.8f, -10);
+        Vector3 position = startPosition;
+
+        for (int i = 0; i < rows; i++) 
+        {
+            for (int j = 0; j < cols; j++) 
+            {
+                if (levelMap[i, j] != 0)
+                {
+
+                    if (i == currentPosition.x &&  j == currentPosition.y)
+                    {
+                        GameObject mapNode = Instantiate(mapPlayerPoint, position, Quaternion.identity);
+                        mapNode.transform.SetParent(mapObject.transform, true);
+                    }
+                    else
+                    {
+                        GameObject mapNode = Instantiate(mapNodeObject, position, Quaternion.identity);
+                        mapNode.transform.SetParent(mapObject.transform, true);
+                    }
+                }
+                position.x += 0.4f; 
+            }
+
+            position.x = startPosition.x;
+            position.y -= 0.4f;
+        }
+    }
+
+    public void AssignPosition()
+    {
+        for(int i = 0; i < levelMap.GetLength(0); i++)
+        {
+            for(int j = 0;  j < levelMap.GetLength(1); j++)
+            {
+                if (levelMap[i, j] == 1)
+                {
+                    currentPosition.x = i;
+                    currentPosition.y = j;
+                }
+
+            }
+        }
+    }
+
+
+
 }

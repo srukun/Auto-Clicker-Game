@@ -22,6 +22,7 @@ public class SceneManager : MonoBehaviour
     public GameObject sceneCamera;
     public GameObject mapManagerObject;
     public RoomManager roomManager;
+    public ScreenTransitionManager transitionManager;
 
     //Minimap
     public GameObject mapObject;
@@ -37,6 +38,7 @@ public class SceneManager : MonoBehaviour
         {0, 2, 1, 0, 0}
     };
     public Vector2Int currentPosition;
+    public Dictionary<Vector2Int, bool> clearedRooms = new Dictionary<Vector2Int, bool>();
 
     void Start()
     {
@@ -44,6 +46,11 @@ public class SceneManager : MonoBehaviour
         AssignPosition();
 
         roomManager.RoomSetUp();
+        Physics.IgnoreLayerCollision(6, 7);
+        Physics.IgnoreLayerCollision(6, 8);
+        Physics.IgnoreLayerCollision(7, 9);
+        Physics.IgnoreLayerCollision(8, 9);
+
     }
 
 
@@ -62,6 +69,7 @@ public class SceneManager : MonoBehaviour
         GameObject heroObject = Instantiate(skins[0], new Vector3(0, 0, -2), Quaternion.identity);
         heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = sceneCamera;
         this.heroGameObject = heroObject;
+        sceneCamera.transform.SetParent(heroObject.transform, false );
     }
     public void IncreaseEarnedGold(int gold)
     {
@@ -136,7 +144,18 @@ public class SceneManager : MonoBehaviour
             }
         }
     }
+    public void MarkRoomAsCleared(Vector2Int roomPosition)
+    {
+        if (clearedRooms.ContainsKey(roomPosition))
+        {
+            clearedRooms[roomPosition] = true;
+        }
+    }
 
+    public bool IsRoomCleared(Vector2Int roomPosition)
+    {
+        return clearedRooms.ContainsKey(roomPosition) && clearedRooms[roomPosition];
+    }
 
 
 }

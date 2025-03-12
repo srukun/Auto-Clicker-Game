@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3763339549740547349}
   - component: {fileID: 3974553935008046229}
   - component: {fileID: -7315473437988100737}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: KnifePrefab_Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,4 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c4f2746a4ee5d4b9c0aa17b5ba3c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisKnife:
+    knifeName: 
+    damage: 0
+    cost: 0
+    speed: 0
+    isBought: 0
+    fireRate: 0
+    level: 0
+    levelUpCost: 0
   lifetime: 0

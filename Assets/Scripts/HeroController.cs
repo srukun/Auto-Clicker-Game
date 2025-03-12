@@ -30,13 +30,7 @@ public class HeroController : MonoBehaviour
 
         Vector3 newPosition = transform.position + moveDirection * speed * Time.deltaTime;
 
-        float minX = -2.57f;
-        float maxX = 2.57f;
-        float minY = -4.58f;
-        float maxY = 4.58f;
 
-        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
-        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
 
         transform.position = newPosition;
     }

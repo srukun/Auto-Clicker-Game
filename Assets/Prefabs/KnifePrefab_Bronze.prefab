@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -9027165201906818065}
   - component: {fileID: 6252780396741725584}
   - component: {fileID: 7185959961914422433}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: KnifePrefab_Bronze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,6 +120,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c4f2746a4ee5d4b9c0aa17b5ba3c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisKnife:
+    knifeName: 
+    damage: 0
+    cost: 0
+    speed: 0
+    isBought: 0
+    fireRate: 0
+    level: 0
+    levelUpCost: 0
   lifetime: 0
 --- !u!61 &7185959961914422433
 BoxCollider2D:
@@ -131,7 +140,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

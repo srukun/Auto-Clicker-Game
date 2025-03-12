@@ -8,41 +8,42 @@ public class PortalManager : MonoBehaviour
     public SceneManager sceneManager;
     public string direction;
 
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector2Int newPosition = sceneManager.currentPosition; // Store current position
+        if (collision.CompareTag("Hero"))
+        {
+            StartCoroutine(sceneManager.transitionManager.SlideTransition(MoveHero));
+        }
+    }
+
+    private void MoveHero()
+    {
+        Vector2Int newPosition = sceneManager.currentPosition;
+        GameObject hero = sceneManager.heroGameObject;
 
         if (direction == "top")
         {
-            newPosition.x -= 1; 
+            newPosition.x -= 1;
+            hero.transform.position = new Vector3(0, -6.5f, -10);
         }
         else if (direction == "bottom")
         {
-            newPosition.x += 1; 
+            newPosition.x += 1;
+            hero.transform.position = new Vector3(0, 6.5f, -10);
         }
         else if (direction == "left")
         {
-            newPosition.y -= 1; 
+            newPosition.y -= 1;
+            hero.transform.position = new Vector3(6.5f, 0, -10);
         }
         else if (direction == "right")
         {
             newPosition.y += 1;
+            hero.transform.position = new Vector3(-6.5f, 0, -10);
         }
 
-        sceneManager.currentPosition = newPosition; // Apply new position
+        sceneManager.currentPosition = newPosition;
         roomManager.RoomSetUp();
         roomManager.sceneManager.HideMinimap();
     }
-
-
 }

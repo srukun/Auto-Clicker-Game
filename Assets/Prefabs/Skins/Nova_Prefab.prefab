@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8888522357805455604}
   - component: {fileID: 4118935926758145827}
   - component: {fileID: 3689840001577597742}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Nova_Prefab
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,7 +169,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &6054005737914753725
 GameObject:
   m_ObjectHideFlags: 0

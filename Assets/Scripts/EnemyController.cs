@@ -119,6 +119,5 @@ public class EnemyController : MonoBehaviour
     {
         heroPosition = heroSceneObject.transform.position;
         distanceFromHero = Vector2.Distance(heroPosition, transform.position);
-        Debug.Log(distanceFromHero);
     }
 }

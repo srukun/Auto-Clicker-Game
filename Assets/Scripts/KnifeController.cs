@@ -57,6 +57,7 @@ public class KnifeController : MonoBehaviour
     {
         if (shootTimer <= 0 && closestEnemy != null) 
         {
+
             GameObject SceneObject_KnifeProjectile = Instantiate(equipedKnifePrefab, transform.position, aimTransform.rotation);
 
             if (DataManager.equipedKnife.knifeName == "Iron Knife")

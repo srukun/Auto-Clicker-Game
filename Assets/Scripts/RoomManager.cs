@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
@@ -24,9 +25,20 @@ public class RoomManager : MonoBehaviour
     public GameObject tilemapParent;
     public int gridWidth = 6;
     public int gridHeight = 10;
-    private HashSet<Vector2Int> occupiedTiles = new HashSet<Vector2Int>();
+
+    public float minX = -6.5f;
+    public float maxX = 6.5f;
+    public float minY = -5.5f;
+    public float maxY = 6.5f;
+    public float tileSize = 1f;
+
+    private HashSet<Vector2> occupiedTiles = new HashSet<Vector2>();
     public void SpawnEnemies()
     {
+        if (sceneManager.IsRoomCleared(sceneManager.currentPosition))
+        {
+            return;
+        }
         numEnemies = Random.Range(1, 4);
         for(int i = 0; i < numEnemies; i++)
         {
@@ -87,13 +99,12 @@ public class RoomManager : MonoBehaviour
     }
     void GenerateGrass()
     {
-        int grassCount = Random.Range(4, 7); // 4-6 grass
+        int grassCount = Random.Range(5, 11); // 4-6 grass
         for (int i = 0; i < grassCount; i++)
         {
-            Vector2Int gridPos = GetRandomEmptyTile();
+            Vector2 gridPos = GetRandomEmptyTile();
 
-            Vector3 worldPos = new Vector3(gridPos.x + 0.5f, gridPos.y + 1.5f, -5);
-            // Convert gridPos (row, column) to world position
+            Vector3 worldPos = new Vector3(gridPos.x, gridPos.y, -5);
             
 
             GameObject grass = Instantiate(grassPrefab, worldPos, Quaternion.identity);
@@ -105,10 +116,10 @@ public class RoomManager : MonoBehaviour
 
     void GenerateTrees()
     {
-        int treeCount = Random.Range(3, 5); // 3-4 trees
+        int treeCount = Random.Range(6, 10); // 3-4 trees
         for (int i = 0; i < treeCount; i++)
         {
-            Vector2Int gridPos = GetRandomEmptyTile();
+            Vector2 gridPos = GetRandomEmptyTile();
 
             // Ensure tree fits within bounds (2 tiles tall)
             if (gridPos.y + 1 < gridHeight && !occupiedTiles.Contains(gridPos + Vector2Int.up))
@@ -128,19 +139,33 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    Vector2Int GetRandomEmptyTile()
+
+
+    public Vector2 GetRandomEmptyTile()
     {
-        Vector2Int position;
+        Vector2 randomTile;
+        int maxAttempts = 1000;
+        int attempts = 0;
+
         do
         {
-            position = new Vector2Int(Random.Range(0, gridWidth), Random.Range(0, gridHeight));
+            float randomX = Mathf.Round(Random.Range(minX, maxX));
+            float randomY = Mathf.Round(Random.Range(minY, maxY));
+
+            randomTile = new Vector2(randomX + 0.5f, randomY + 0.5f);
+            attempts++;
+
+        } while (occupiedTiles.Contains(randomTile) && attempts < maxAttempts);
+
+        if (attempts >= maxAttempts)
+        {
+            Debug.LogWarning("No available empty tile found!");
+            return Vector2.zero;
         }
-        while (occupiedTiles.Contains(position)); // Ensure no overlap
 
-        return position;
+        occupiedTiles.Add(randomTile);
+        return randomTile;
     }
-
-
     public void StartRoomSetUp()
     {
         SetPortalsActive();
@@ -163,10 +188,12 @@ public class RoomManager : MonoBehaviour
         foreach (GameObject portal in portals)
         {
             portal.SetActive(false);
+            Debug.Log(portal.gameObject.activeInHierarchy);
         }
     }
     public void SetPortalsActive()
     {
+
         int x = sceneManager.currentPosition.x;
         int y = sceneManager.currentPosition.y;
         int[,] levelMap = sceneManager.levelMap;
@@ -201,6 +228,7 @@ public class RoomManager : MonoBehaviour
         if(numEnemies == 0)
         {
             SetPortalsActive();
+            sceneManager.MarkRoomAsCleared(sceneManager.currentPosition);
         }
 
     }

@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2527792143703950034}
   - component: {fileID: -8527204781561619061}
   - component: {fileID: -4058552436167833365}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyPrefab_CottonCandy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
   spawnCode: 0
   heroSceneObject: {fileID: 0}
   projectilePrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
-  moveDelayTimer: 0
+  attackDelayTimer: 0
 --- !u!61 &-4058552436167833365
 BoxCollider2D:
   m_ObjectHideFlags: 0

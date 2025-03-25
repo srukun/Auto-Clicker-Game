@@ -95,11 +95,12 @@ public class RoomManager : MonoBehaviour
         {
             tilemap.SetActive(false);
         }
-        tilemap[Random.Range(0, tilemap.Length)].SetActive(true);
+        //tilemap[Random.Range(0, tilemap.Length)].SetActive(true);
+        tilemap[0].SetActive(true);
     }
     void GenerateGrass()
     {
-        int grassCount = Random.Range(5, 11); // 4-6 grass
+        int grassCount = Random.Range(15, 20); // 4-6 grass
         for (int i = 0; i < grassCount; i++)
         {
             Vector2 gridPos = GetRandomEmptyTile();
@@ -116,7 +117,7 @@ public class RoomManager : MonoBehaviour
 
     void GenerateTrees()
     {
-        int treeCount = Random.Range(6, 10); // 3-4 trees
+        int treeCount = Random.Range(10, 15); // 3-4 trees
         for (int i = 0; i < treeCount; i++)
         {
             Vector2 gridPos = GetRandomEmptyTile();
@@ -188,7 +189,6 @@ public class RoomManager : MonoBehaviour
         foreach (GameObject portal in portals)
         {
             portal.SetActive(false);
-            Debug.Log(portal.gameObject.activeInHierarchy);
         }
     }
     public void SetPortalsActive()

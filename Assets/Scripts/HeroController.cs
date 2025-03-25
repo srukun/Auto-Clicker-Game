@@ -8,7 +8,9 @@ public class HeroController : MonoBehaviour
     public Hero hero;
 
     public GameObject sceneManagerObject;
-
+    public Camera camera;
+    public Animator animator;
+    public Vector2 movement;
     void Start()
     {
         position = transform.position;
@@ -18,6 +20,16 @@ public class HeroController : MonoBehaviour
     void Update()
     {
         Movement();
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        if (movement.sqrMagnitude > 1)
+        {
+            movement.Normalize();
+        }
+
+        animator.SetFloat("MoveX", movement.x);
+        animator.SetFloat("MoveY", movement.y);
+
     }
 
     public void Movement()

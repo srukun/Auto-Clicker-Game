@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 7275237015932620641}
   - component: {fileID: 1788871334288286657}
   - component: {fileID: 3210230502655079378}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyPrefab_Orange
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -484,7 +484,7 @@ MonoBehaviour:
   spawnCode: 0
   heroSceneObject: {fileID: 0}
   projectilePrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
-  moveDelayTimer: 0
+  attackDelayTimer: 0
 --- !u!61 &3210230502655079378
 BoxCollider2D:
   m_ObjectHideFlags: 0

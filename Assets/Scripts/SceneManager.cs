@@ -70,6 +70,7 @@ public class SceneManager : MonoBehaviour
         heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = sceneCamera;
         this.heroGameObject = heroObject;
         sceneCamera.transform.SetParent(heroObject.transform, false );
+        heroObject.GetComponent<HeroController>().camera = sceneCamera.GetComponent<Camera>();
     }
     public void IncreaseEarnedGold(int gold)
     {

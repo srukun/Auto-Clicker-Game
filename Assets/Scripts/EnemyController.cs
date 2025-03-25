@@ -101,7 +101,7 @@ public class EnemyController : MonoBehaviour
 
     public void Movement()
     {
-        if (distanceFromHero < 4.5f)
+        if (distanceFromHero < 5.25f)
         {
             float xOffset = Random.Range(-0.5f, 0.5f);
             float yOffset = Random.Range(-0.5f, 0.5f);

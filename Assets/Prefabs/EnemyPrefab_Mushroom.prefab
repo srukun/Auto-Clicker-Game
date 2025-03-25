@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 3024641130189445295}
   - component: {fileID: 8863149319174957146}
   - component: {fileID: -1957699286818452985}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyPrefab_Mushroom
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
   spawnCode: 0
   heroSceneObject: {fileID: 0}
   projectilePrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
-  moveDelayTimer: 0
+  attackDelayTimer: 0
 --- !u!61 &-1957699286818452985
 BoxCollider2D:
   m_ObjectHideFlags: 0

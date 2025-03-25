@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2124961624080544705}
   - component: {fileID: -5431678956300817293}
   - component: {fileID: 6662401908558424723}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyPrefab_Pumpkin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
   spawnCode: 0
   heroSceneObject: {fileID: 0}
   projectilePrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
-  moveDelayTimer: 0
+  attackDelayTimer: 0
 --- !u!61 &6662401908558424723
 BoxCollider2D:
   m_ObjectHideFlags: 0

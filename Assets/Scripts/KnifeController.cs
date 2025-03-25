@@ -50,14 +50,13 @@ public class KnifeController : MonoBehaviour
     
     void FixedUpdate()
     {
-        AimAtClosestEnemy();
+        Aim();
         Shoot();
     }
     public void Shoot()
     {
-        if (shootTimer <= 0 && closestEnemy != null) 
+        if (shootTimer <= 0 && Input.GetButton("Fire1"))
         {
-
             GameObject SceneObject_KnifeProjectile = Instantiate(equipedKnifePrefab, transform.position, aimTransform.rotation);
 
             if (DataManager.equipedKnife.knifeName == "Iron Knife")
@@ -78,9 +77,10 @@ public class KnifeController : MonoBehaviour
             }
 
 
-            shootTimer = (float)1 / DataManager.equipedKnife.fireRate;
+            shootTimer = 0.33f;
             SceneObject_KnifeProjectile.GetComponent<Rigidbody2D>().AddForce(SceneObject_KnifeProjectile.transform.up * DataManager.equipedKnife.speed, ForceMode2D.Impulse);
             SceneObject_KnifeProjectile.GetComponent<KnifeProjectileScript>().thisKnife = DataManager.equipedKnife;
+
         }
         if(shootTimer > 0)
         {
@@ -88,13 +88,13 @@ public class KnifeController : MonoBehaviour
         }
 
     }
-    /*    public void Aim()
-        {
-            mousePosition = SceneObject_Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-            aimDirection = (mousePosition - aimTransform.position).normalized;
-            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-            aimTransform.eulerAngles = new Vector3(0, 0, angle - 90);
-        }*/
+    public void Aim()
+    {
+        mousePosition = SceneObject_Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+        aimDirection = (mousePosition - aimTransform.position).normalized;
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        aimTransform.eulerAngles = new Vector3(0, 0, angle - 90);
+    }
     public void AimAtClosestEnemy()
     {
         GameObject closestEnemy = FindClosestEnemy();

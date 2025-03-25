@@ -69,7 +69,7 @@ public class SceneManager : MonoBehaviour
         GameObject heroObject = Instantiate(skins[0], new Vector3(0, 0, -2), Quaternion.identity);
         heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = sceneCamera;
         this.heroGameObject = heroObject;
-        sceneCamera.transform.SetParent(heroObject.transform, false );
+        sceneCamera.GetComponent<CameraFollowScript>().player = heroObject.transform;
         heroObject.GetComponent<HeroController>().camera = sceneCamera.GetComponent<Camera>();
     }
     public void IncreaseEarnedGold(int gold)

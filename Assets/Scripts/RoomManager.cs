@@ -42,7 +42,7 @@ public class RoomManager : MonoBehaviour
         numEnemies = Random.Range(1, 4);
         for(int i = 0; i < numEnemies; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], GetSpawnLocation(), Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], GetSpawnLocation(true), Quaternion.identity);
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
             enemyController.sceneManager = this.sceneManager;
             enemyController.heroSceneObject = sceneManager.heroGameObject;
@@ -54,6 +54,13 @@ public class RoomManager : MonoBehaviour
         float y = Random.Range(-spawnConstraintY, spawnConstraintY);
 
         return new Vector3(x, y, -1);
+    }
+    public Vector3 GetSpawnLocation(bool enemy)
+    {
+        float x = Random.Range(-spawnConstraintX, spawnConstraintX);
+        float y = Random.Range(-spawnConstraintY, spawnConstraintY);
+
+        return new Vector3(x, y, -6);
     }
 
     public void RoomSetUp()
@@ -105,7 +112,7 @@ public class RoomManager : MonoBehaviour
         {
             Vector2 gridPos = GetRandomEmptyTile();
 
-            Vector3 worldPos = new Vector3(gridPos.x, gridPos.y, -5);
+            Vector3 worldPos = new Vector3(gridPos.x, gridPos.y, -4);
             
 
             GameObject grass = Instantiate(grassPrefab, worldPos, Quaternion.identity);
@@ -125,7 +132,7 @@ public class RoomManager : MonoBehaviour
             // Ensure tree fits within bounds (2 tiles tall)
             if (gridPos.y + 1 < gridHeight && !occupiedTiles.Contains(gridPos + Vector2Int.up))
             {
-                Vector3 worldPos = new Vector3(gridPos.x + 0.5f, gridPos.y + 1.5f, -5);
+                Vector3 worldPos = new Vector3(gridPos.x, gridPos.y, -5);
 
                 GameObject tree = Instantiate(treePrefab, worldPos, Quaternion.identity);
                 tree.transform.SetParent(tilemapParent.transform, false);
@@ -165,6 +172,8 @@ public class RoomManager : MonoBehaviour
         }
 
         occupiedTiles.Add(randomTile);
+        Debug.Log("Tile: " + randomTile);
+
         return randomTile;
     }
     public void StartRoomSetUp()

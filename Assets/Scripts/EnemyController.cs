@@ -107,11 +107,11 @@ public class EnemyController : MonoBehaviour
             float yOffset = Random.Range(-0.5f, 0.5f);
 
             // Calculate new position with offset
-            Vector3 targetPosition = new Vector3(heroPosition.x + xOffset, heroPosition.y + yOffset, -2);
+            Vector3 targetPosition = new Vector3(heroPosition.x + xOffset, heroPosition.y + yOffset, -6);
 
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 1f * Time.deltaTime);
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, -2);
+            transform.position = new Vector3(transform.position.x, transform.position.y, -6);
         }
     }
 

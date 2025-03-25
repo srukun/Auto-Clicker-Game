@@ -17,7 +17,7 @@ public class HeroController : MonoBehaviour
         hero = new Hero();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Movement();
         movement.x = Input.GetAxisRaw("Horizontal");

@@ -51,6 +51,8 @@ public class SceneManager : MonoBehaviour
         Physics.IgnoreLayerCollision(6, 8);
         Physics.IgnoreLayerCollision(7, 9);
         Physics.IgnoreLayerCollision(8, 9);
+        Physics.IgnoreLayerCollision(9, 9);
+
         SetupMinimap();
 
     }

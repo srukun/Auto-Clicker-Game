@@ -9,9 +9,9 @@ public class Hero
     public string ability;
     public Hero()
     {
-        name = "Storm";
-        maxHealth = 10;
-        health = 10;
-        ability = "Lighting Lance";
+        name = "Phantom";
+        maxHealth = 100;
+        health = 100;
+        ability = "Phase Shift";
     }
 }

@@ -43,8 +43,8 @@ public class RoomManager : MonoBehaviour
         numEnemies = Random.Range(1, 4);
         for(int i = 0; i < numEnemies; i++)
         {
-            //Random.Range(0, enemyPrefabs.Length)
-            GameObject enemy = Instantiate(enemyPrefabs[2], GetSpawnLocation(true), Quaternion.identity);
+            int enemyNum = Random.Range(0, enemyPrefabs.Length);
+            GameObject enemy = Instantiate(enemyPrefabs[enemyNum], GetSpawnLocation(true), Quaternion.identity);
             BaseEnemyController enemyController = enemy.GetComponent<BaseEnemyController>();
             enemyController.sceneManager = this.sceneManager;
             enemyController.roomManager = this;
@@ -56,7 +56,7 @@ public class RoomManager : MonoBehaviour
         float x = Random.Range(-spawnConstraintX, spawnConstraintX);
         float y = Random.Range(-spawnConstraintY, spawnConstraintY);
 
-        return new Vector3(x, y, -1);
+        return new Vector3(x, y, -6);
     }
     public Vector3 GetSpawnLocation(bool enemy)
     {

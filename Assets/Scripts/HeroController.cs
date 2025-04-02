@@ -8,14 +8,18 @@ public class HeroController : MonoBehaviour
     public Hero hero;
 
     public GameObject sceneManagerObject;
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     public Camera camera;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
     public Animator animator;
 
     public float speed = 3.5f;
     public Vector2 movement;
     public Rigidbody2D rb;
+    public Healthbar healthbar;
     void Start()
     {
+
         position = transform.position;
         hero = new Hero();
     }

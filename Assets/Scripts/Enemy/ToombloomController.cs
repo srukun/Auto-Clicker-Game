@@ -26,12 +26,18 @@ public class ToombloomController : BaseEnemyController
 
     private void FireSeedStorm()
     {
-        for (int i = 0; i < seedCount; i++)
+        Vector2 toPlayer = (player.position - transform.position).normalized;
+        float baseAngle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg;
+
+        float[] spreadAngles = { -15f, 0f, 15f };
+
+        foreach (float offset in spreadAngles)
         {
-            float angle = Random.Range(0f, 360f);
+            float angle = baseAngle + offset;
             Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             GameObject bullet = Instantiate(bulletPrefab, transform.position + (Vector3)(dir * 0.1f), Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
         }
     }
+
 }

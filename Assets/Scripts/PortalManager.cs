@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PortalManager : MonoBehaviour
 {
     public RoomManager roomManager;
@@ -11,9 +11,13 @@ public class PortalManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Hero")
+        if (collision.transform.tag == "Hero" && direction != "home")
         {
             StartCoroutine(sceneManager.transitionManager.SlideTransition(MoveHero));
+        }
+        else if (collision.transform.tag == "Hero" && direction == "home")
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
     private void MoveHero()
@@ -44,6 +48,6 @@ public class PortalManager : MonoBehaviour
 
         sceneManager.currentPosition = newPosition;
         roomManager.RoomSetUp();
-        roomManager.sceneManager.HideMinimap();
+        roomManager.sceneManager.SetupMinimap();
     }
 }

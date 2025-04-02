@@ -30,17 +30,21 @@ public class KnifeProjectileScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyController>().thisEnemy.ModifyHealth(thisKnife.getDamage());
-            collision.gameObject.GetComponent<EnemyController>().ActivateFlashEffect();
-            collision.gameObject.GetComponent<EnemyController>().HeartEffect();
-            collision.gameObject.GetComponent<EnemyController>().DamageEffect(thisKnife.getDamage());
-            if(collision.gameObject.GetComponent<EnemyController>().thisEnemy.health <= 0)
+            BaseEnemyController enemy = collision.GetComponent<BaseEnemyController>();
+            if (enemy != null)
             {
-                collision.gameObject.GetComponent<EnemyController>().KillThisEnemy();
+                int damage = thisKnife.getDamage();
+                damage = 10;
+                enemy.TakeDamage(damage);
+
+                enemy.ActivateFlashEffect();
+
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
     }
+
+
 }

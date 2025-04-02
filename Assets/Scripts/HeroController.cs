@@ -10,18 +10,21 @@ public class HeroController : MonoBehaviour
     public GameObject sceneManagerObject;
     public Camera camera;
     public Animator animator;
+
+    public float speed = 3.5f;
     public Vector2 movement;
+    public Rigidbody2D rb;
     void Start()
     {
         position = transform.position;
         hero = new Hero();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        Movement();
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
         if (movement.sqrMagnitude > 1)
         {
             movement.Normalize();
@@ -30,24 +33,14 @@ public class HeroController : MonoBehaviour
         animator.SetFloat("MoveX", movement.x);
         animator.SetFloat("MoveY", movement.y);
 
+        MoveCharacter();
     }
 
-    public void Movement()
+    void MoveCharacter()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        /*        Vector3 moveDirection = new Vector3(movement.x, movement.y, 0);
+                transform.position += moveDirection * speed * Time.deltaTime;*/
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
 
-        float speed = 3.5f;
-        Vector3 moveDirection = new Vector3(horizontal, vertical, 0).normalized;
-
-        Vector3 newPosition = transform.position + moveDirection * speed * Time.deltaTime;
-
-
-
-        transform.position = newPosition;
     }
-
-
-
-
 }

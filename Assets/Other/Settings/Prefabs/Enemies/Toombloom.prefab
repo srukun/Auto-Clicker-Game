@@ -179,10 +179,10 @@ GameObject:
   - component: {fileID: 3024641130189445294}
   - component: {fileID: 3024641130189445292}
   - component: {fileID: 3024641130189445295}
-  - component: {fileID: 8863149319174957146}
   - component: {fileID: -1957699286818452985}
+  - component: {fileID: -9151429275725173929}
   m_Layer: 8
-  m_Name: EnemyPrefab_Mushroom
+  m_Name: Toombloom
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,41 +282,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8863149319174957146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3024641130189445289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d351eac3afdbbd04e9b603f47553fbc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisEnemy:
-    enemyName: Mushroom
-    level: 1
-    health: 5
-    goldRewarded: 5
-  hearts:
-  - {fileID: 8823568717705992757}
-  - {fileID: 173450725110537195}
-  - {fileID: 3885599058942205798}
-  originalHealth: 0
-  pixelHeartExplosionEffect: {fileID: 7600542231335257498, guid: 3dc953922050e1c4fa72c42f7fa7fd05, type: 3}
-  enemyExplosionEffect: {fileID: 2546150610870251680, guid: 9feb718fc7c3cec4aa332ef2d7f98286, type: 3}
-  flashEffect: {fileID: 5581248649202424503}
-  flashEffectTimer: 0
-  sceneManager: {fileID: 0}
-  roomManager: {fileID: 0}
-  SceneObj_Canvas: {fileID: 0}
-  enemyInformationTextPrefab: {fileID: 0}
-  SceneObj_EnemyInformationText: {fileID: 0}
-  spawnCode: 0
-  heroSceneObject: {fileID: 0}
-  projectilePrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
-  attackDelayTimer: 0
 --- !u!61 &-1957699286818452985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -343,6 +308,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-9151429275725173929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024641130189445289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d4fae9879b9974ebab46f1b21e2b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 19ab4cf717d3bbc499212e7a1013b7b0, type: 2}
+  player: {fileID: 0}
+  currentHealth: 0
+  attackTimer: 0
+  patrolRadius: 2.5
+  patrolSpeed: 2
+  patrolPauseTime: 1
+  patrolOrigin: {x: 0, y: 0, z: 0}
+  currentPatrolTarget: {x: 0, y: 0, z: 0}
+  isPatrolling: 1
+  isWaiting: 0
+  patrolWaitTimer: 0
+  enemyExplosionEffect: {fileID: 2546150610870251680, guid: 9feb718fc7c3cec4aa332ef2d7f98286, type: 3}
+  flashEffect: {fileID: 306970666840449021, guid: c33ad297e9caa414e92b94cc235efd8a, type: 3}
+  flashEffectTimer: 0
+  sceneManager: {fileID: 0}
+  roomManager: {fileID: 0}
+  goldRewarded: 1
+  bulletPrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
+  bulletSpeed: 4
+  bulletCount: 8
 --- !u!1 &3885599058942205798
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class SceneManager : MonoBehaviour
     public GameObject mapObject;
     public GameObject mapNodeObject;
     public GameObject mapPlayerPoint;
+    public GameObject minimapBossNode;
     //Map
     public int[,] levelMap = new int[,]
     {
@@ -50,6 +51,7 @@ public class SceneManager : MonoBehaviour
         Physics.IgnoreLayerCollision(6, 8);
         Physics.IgnoreLayerCollision(7, 9);
         Physics.IgnoreLayerCollision(8, 9);
+        SetupMinimap();
 
     }
 
@@ -87,21 +89,29 @@ public class SceneManager : MonoBehaviour
             Destroy(mapObject.transform.GetChild(i).gameObject);
         }
     }
+    public void SetupMinimap()
+    {
+        for (int i = mapObject.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(mapObject.transform.GetChild(i).gameObject);
+        }
+        ViewMap();
+    }
     public void ViewMap()
     {
-        if (mapObject.activeInHierarchy)
+/*        if (mapObject.activeInHierarchy)
         {
             HideMinimap();
         }
         else
         {
             mapObject.SetActive(true);
-        }
+        }*/
 
         int rows = levelMap.GetLength(0);
         int cols = levelMap.GetLength(1);
 
-        Vector3 startPosition = new Vector3(-0.8f, 0.8f, -10);
+        Vector3 startPosition = new Vector3(-42, 42, 0);
         Vector3 position = startPosition;
 
         for (int i = 0; i < rows; i++) 
@@ -114,19 +124,28 @@ public class SceneManager : MonoBehaviour
                     if (i == currentPosition.x &&  j == currentPosition.y)
                     {
                         GameObject mapNode = Instantiate(mapPlayerPoint, position, Quaternion.identity);
-                        mapNode.transform.SetParent(mapObject.transform, true);
+                        mapNode.transform.SetParent(mapObject.transform, false);
                     }
                     else
                     {
-                        GameObject mapNode = Instantiate(mapNodeObject, position, Quaternion.identity);
-                        mapNode.transform.SetParent(mapObject.transform, true);
+                        if (levelMap[i, j] == 3)
+                        {
+                            GameObject mapNode = Instantiate(minimapBossNode, position, Quaternion.identity);
+                            mapNode.transform.SetParent(mapObject.transform, false);
+                        }
+                        else
+                        {
+                            GameObject mapNode = Instantiate(mapNodeObject, position, Quaternion.identity);
+                            mapNode.transform.SetParent(mapObject.transform, false);
+                        }
+
                     }
                 }
-                position.x += 0.4f; 
+                position.x += 24; 
             }
 
             position.x = startPosition.x;
-            position.y -= 0.4f;
+            position.y -= 24;
         }
     }
 

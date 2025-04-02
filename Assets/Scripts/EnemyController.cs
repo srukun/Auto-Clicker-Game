@@ -93,7 +93,6 @@ public class EnemyController : MonoBehaviour
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
-            projectile.GetComponent<ProjectileController>().Initialize(heroSceneObject.transform.position, 10f);
 
             attackDelayTimer = 0.75f;
         }

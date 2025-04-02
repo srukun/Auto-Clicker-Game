@@ -32,6 +32,7 @@ public class RoomManager : MonoBehaviour
     public float maxY = 6.5f;
     public float tileSize = 1f;
 
+    public GameObject returnHomePortal;
     private HashSet<Vector2> occupiedTiles = new HashSet<Vector2>();
     public void SpawnEnemies()
     {
@@ -42,10 +43,12 @@ public class RoomManager : MonoBehaviour
         numEnemies = Random.Range(1, 4);
         for(int i = 0; i < numEnemies; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], GetSpawnLocation(true), Quaternion.identity);
-            EnemyController enemyController = enemy.GetComponent<EnemyController>();
+            //Random.Range(0, enemyPrefabs.Length)
+            GameObject enemy = Instantiate(enemyPrefabs[2], GetSpawnLocation(true), Quaternion.identity);
+            BaseEnemyController enemyController = enemy.GetComponent<BaseEnemyController>();
             enemyController.sceneManager = this.sceneManager;
-            enemyController.heroSceneObject = sceneManager.heroGameObject;
+            enemyController.roomManager = this;
+
         }
     }
     public Vector3 GetSpawnLocation()
@@ -78,6 +81,14 @@ public class RoomManager : MonoBehaviour
         {
             EnemyRoomSetUp();
         }
+        if (sceneManager.levelMap[x, y] == 3)
+        {
+            GameObject enemy = Instantiate(enemyPrefabs[4], new Vector3(0, 0, -6), Quaternion.identity);
+            BaseEnemyController enemyController = enemy.GetComponent<BaseEnemyController>();
+            enemyController.sceneManager = this.sceneManager;
+            enemyController.roomManager = this;
+            enemy.GetComponent<DarkMountController>().returnHomePortal = this.returnHomePortal;
+        }
     }
     public void GenerateRoom()
     {
@@ -95,6 +106,7 @@ public class RoomManager : MonoBehaviour
 
         GenerateGrass();
         GenerateTrees();
+        
     }
     public void SelectTilemap()
     {
@@ -167,12 +179,10 @@ public class RoomManager : MonoBehaviour
 
         if (attempts >= maxAttempts)
         {
-            Debug.LogWarning("No available empty tile found!");
             return Vector2.zero;
         }
 
         occupiedTiles.Add(randomTile);
-        Debug.Log("Tile: " + randomTile);
 
         return randomTile;
     }

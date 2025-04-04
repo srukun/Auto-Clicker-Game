@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: e238929a4792f7243ae0532fb179cef3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: a994e890820bffc429a1e33cb20a8b6e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -248,11 +248,10 @@ MonoBehaviour:
   flashEffectTimer: 0
   sceneManager: {fileID: 0}
   roomManager: {fileID: 0}
-  goldRewarded: 1
   moveOffset: {x: 0, y: 0}
   healthBar: {fileID: 7070914375281102153}
   damagePopupPrefab: {fileID: 7541021367932431506, guid: 42596f232fdecb44db7aa93db934bb2e, type: 3}
-  bulletPrefab: {fileID: 3441699339392822848, guid: 17616b319c092fb43869ee04d828bad3, type: 3}
+  bulletPrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
   projectileSpeed: 6
 --- !u!1001 &6759965155772770237
 PrefabInstance:

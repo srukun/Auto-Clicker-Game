@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: 6c115887b3a017f4d89891ac18ddb4a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: 69dbe95fb890460469f6cd2043dda61a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -222,7 +222,6 @@ MonoBehaviour:
   flashEffectTimer: 0
   sceneManager: {fileID: 0}
   roomManager: {fileID: 0}
-  goldRewarded: 1
   moveOffset: {x: 0, y: 0}
   healthBar: {fileID: 6940542699839421120}
   damagePopupPrefab: {fileID: 7541021367932431506, guid: 42596f232fdecb44db7aa93db934bb2e, type: 3}

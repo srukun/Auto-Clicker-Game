@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class AshrootController : BaseEnemyController
+public class AshrootController : EnemyController
 {
     public GameObject bulletPrefab;
-    public float projectileSpeed = 6f;
+    public float projectileSpeed = 4f;
 
     private bool isFlurrying = false;
     private float flurryTimer = 0f;

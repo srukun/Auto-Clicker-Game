@@ -15,8 +15,12 @@ public class TilemapObjectManager : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector2.Distance(transform.position, player.position);
-        Fade();
+        if(player != null)
+        {
+            float distance = Vector2.Distance(transform.position, player.position);
+            Fade();
+        }
+
     }
     public void Fade()
     {

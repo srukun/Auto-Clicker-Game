@@ -32,7 +32,7 @@ public class KnifeProjectileScript : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            BaseEnemyController enemy = collision.GetComponent<BaseEnemyController>();
+            EnemyController enemy = collision.GetComponent<EnemyController>();
             if (enemy != null)
             {
                 int damage = thisKnife.getDamage();

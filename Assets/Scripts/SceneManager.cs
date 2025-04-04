@@ -45,13 +45,13 @@ public class SceneManager : MonoBehaviour
     {
         SpawnHero();
         AssignPosition();
-
-        roomManager.RoomSetUp();
-        Physics.IgnoreLayerCollision(6, 7);
-        Physics.IgnoreLayerCollision(6, 8);
-        Physics.IgnoreLayerCollision(7, 9);
-        Physics.IgnoreLayerCollision(8, 9);
-        Physics.IgnoreLayerCollision(9, 9);
+        Physics2D.IgnoreLayerCollision(6, 7);
+        Physics2D.IgnoreLayerCollision(6, 8);
+        Physics2D.IgnoreLayerCollision(7, 9);
+        Physics2D.IgnoreLayerCollision(7, 10);
+        Physics2D.IgnoreLayerCollision(8, 9);
+        Physics2D.IgnoreLayerCollision(9, 9);
+        Physics2D.IgnoreLayerCollision(9, 10);
 
         SetupMinimap();
 
@@ -93,6 +93,7 @@ public class SceneManager : MonoBehaviour
     }
     public void SetupMinimap()
     {
+        
         for (int i = mapObject.transform.childCount - 1; i >= 0; i--)
         {
             Destroy(mapObject.transform.GetChild(i).gameObject);
@@ -101,15 +102,6 @@ public class SceneManager : MonoBehaviour
     }
     public void ViewMap()
     {
-/*        if (mapObject.activeInHierarchy)
-        {
-            HideMinimap();
-        }
-        else
-        {
-            mapObject.SetActive(true);
-        }*/
-
         int rows = levelMap.GetLength(0);
         int cols = levelMap.GetLength(1);
 

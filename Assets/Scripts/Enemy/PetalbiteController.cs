@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PetalbiteController : BaseEnemyController
+public class PetalbiteController : EnemyController
 {
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;

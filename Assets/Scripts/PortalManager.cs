@@ -6,6 +6,7 @@ public class PortalManager : MonoBehaviour
 {
     public RoomManager roomManager;
     public SceneManager sceneManager;
+    public RoomNode currentNode;
     public string direction;
 
 
@@ -22,32 +23,31 @@ public class PortalManager : MonoBehaviour
     }
     private void MoveHero()
     {
-        Vector2Int newPosition = sceneManager.currentPosition;
         GameObject hero = sceneManager.heroGameObject;
 
         if (direction == "top")
         {
-            newPosition.x -= 1;
             hero.transform.position = new Vector3(0, -6.5f, -2);
+            roomManager.currentNode = roomManager.currentNode.top;
         }
         else if (direction == "bottom")
         {
-            newPosition.x += 1;
             hero.transform.position = new Vector3(0, 6.5f, -2);
+            roomManager.currentNode = roomManager.currentNode.bottom;
         }
         else if (direction == "left")
         {
-            newPosition.y -= 1;
             hero.transform.position = new Vector3(6.5f, 0, -2);
+            roomManager.currentNode = roomManager.currentNode.left;
         }
         else if (direction == "right")
         {
-            newPosition.y += 1;
             hero.transform.position = new Vector3(-6.5f, 0, -2);
+            roomManager.currentNode = roomManager.currentNode.right;
         }
 
-        sceneManager.currentPosition = newPosition;
-        roomManager.RoomSetUp();
-        roomManager.sceneManager.SetupMinimap();
+        //sceneManager.currentPosition = newPosition;
+        roomManager.InitializeRoom();
+        //roomManager.sceneManager.SetupMinimap();
     }
 }

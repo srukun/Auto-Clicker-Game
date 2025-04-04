@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ToombloomController : BaseEnemyController
+public class ToombloomController : EnemyController
 {
     public GameObject bulletPrefab;
     public float bulletSpeed = 3f;

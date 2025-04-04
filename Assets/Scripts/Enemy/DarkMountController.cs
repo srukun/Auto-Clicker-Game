@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DarkMountController : BaseEnemyController
+public class DarkMountController : EnemyController
 {
     public GameObject returnHomePortal;
     public override void HandleAttack()

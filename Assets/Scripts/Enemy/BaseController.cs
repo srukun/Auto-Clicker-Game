@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BaseEnemyController : MonoBehaviour
+public abstract class EnemyController : MonoBehaviour
 {
     public EnemyStats stats;
     public Transform player;
@@ -27,6 +27,7 @@ public abstract class BaseEnemyController : MonoBehaviour
     public Healthbar healthBar;
 
     public GameObject damagePopupPrefab;
+    public float initialAgroDelay = 1.15f;
     public virtual void Start()
     {
         player = GameObject.FindWithTag("Hero").transform;
@@ -45,8 +46,11 @@ public abstract class BaseEnemyController : MonoBehaviour
     public virtual void Update()
     {
         float playerDistance = Vector2.Distance(transform.position, player.position);
-
-        if (playerDistance <= stats.detectionRange)
+        if(initialAgroDelay > 0f)
+        {
+            initialAgroDelay -= Time.deltaTime;
+        }
+        if (playerDistance <= stats.detectionRange && initialAgroDelay <= 0f)
         {
             isPatrolling = false;
             HandleMovement();
@@ -90,7 +94,7 @@ public abstract class BaseEnemyController : MonoBehaviour
         }
         if (damagePopupPrefab != null)
         {
-            Vector3 spawnPosition = transform.position + new Vector3(0, 1f, 0);
+            Vector3 spawnPosition = transform.position + new Vector3(Random.Range(-0.25f, 0.26f), 1f, 0);
             GameObject popup = Instantiate(damagePopupPrefab, spawnPosition, Quaternion.identity);
             popup.GetComponent<DamagePopup>().Setup(Mathf.RoundToInt(amount));
         }
@@ -111,7 +115,7 @@ public abstract class BaseEnemyController : MonoBehaviour
 
         if (roomManager != null)
         {
-            roomManager.DecreaseEnemiesRemaining();
+            roomManager.ReduceEnemyCountOnKill();
         }
 
         Destroy(gameObject);

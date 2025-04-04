@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FadewiltController : BaseEnemyController
+public class FadewiltController : EnemyController
 {
     public GameObject bulletPrefab;
     public float bulletSpeed = 3f;

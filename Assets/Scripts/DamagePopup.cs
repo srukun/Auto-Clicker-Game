@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using TMPro.EditorUtilities;
 
 public class DamagePopup : MonoBehaviour
 {
@@ -20,10 +19,6 @@ public class DamagePopup : MonoBehaviour
         text.text = damage.ToString();
         outlineText.text = damage.ToString();
 
-        /*text.extraPadding = true;
-        text.fontMaterial = new Material(text.fontMaterial);
-        text.fontMaterial.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
-        text.fontMaterial.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);*/
 
         timer = lifetime;
     }

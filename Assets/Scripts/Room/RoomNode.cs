@@ -34,6 +34,8 @@ public class RoomNode
         EnemyRoom,
         ShopRoom,
         MiniBossRoom,
+        Leaflutter,
+        DarkMount,
         BossRoom
 }
     public void AddDecorationToGrid()

@@ -40,7 +40,7 @@ public class RoomManager : MonoBehaviour
         RoomNode newNode = startNode;
 
         newNode = AddLinearRooms(newNode, RoomNode.RoomType.EnemyRoom, 5, false);
-        newNode = AddLinearRooms(newNode, RoomNode.RoomType.MiniBossRoom, 1, false);
+        newNode = AddLinearRooms(newNode, RoomNode.RoomType.Leaflutter, 1, false);
     }
 
 
@@ -75,6 +75,7 @@ public class RoomManager : MonoBehaviour
                     enemyController.roomManager = this;
 
                 }
+
             }
         }
     }

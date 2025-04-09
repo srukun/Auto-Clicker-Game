@@ -71,7 +71,9 @@ public class SceneManager : MonoBehaviour
     public void SpawnHero()
     {
         GameObject heroObject = Instantiate(skins[0], new Vector3(0, 0, -2), Quaternion.identity);
-        heroObject.GetComponentInChildren<KnifeController>().SceneObject_Camera = sceneCamera;
+        heroObject.GetComponentInChildren<Weapon>().mainCamera = sceneCamera.GetComponent<Camera>();
+        heroObject.GetComponentInChildren<Weapon>().player = heroObject.GetComponent<HeroController>();
+
         this.heroGameObject = heroObject;
         sceneCamera.GetComponent<CameraFollowScript>().player = heroObject.transform;
         heroObject.GetComponent<HeroController>().camera = sceneCamera.GetComponent<Camera>();

@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
     public float cooldown;
 
     [Header("Special Effects")]
+    public float bonusArmor;
     public float armorPenetrationChance;
     public int lifestealOnKill;
     public float bonusMoveSpeed;
@@ -23,9 +24,9 @@ public class Weapon : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject slashEffectPrefab;
 
-    protected HeroController player;
-    protected float shootTimer;
-    protected Camera mainCamera;
+    public HeroController player;
+    public float shootTimer;
+    public Camera mainCamera;
 
     public enum Type { Sword, Bow, Dagger }
 
@@ -40,7 +41,7 @@ public class Weapon : MonoBehaviour
         {
             shootTimer -= Time.deltaTime;
         }
-
+        AimAtMouse();
         if (Input.GetButton("Fire1"))
         {
             TryPrimaryAttack();
@@ -85,7 +86,17 @@ public class Weapon : MonoBehaviour
             
         }
     }
+    private void AimAtMouse()
+    {
+        if (mainCamera == null || player == null) return;
 
+        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (mousePosition - player.position).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle -= 45f;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
     public virtual void SecondaryAttack()
     {
         

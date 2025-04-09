@@ -95,34 +95,7 @@ public class KnifeController : MonoBehaviour
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         aimTransform.eulerAngles = new Vector3(0, 0, angle - 90);
     }
-    public void AimAtClosestEnemy()
-    {
-        GameObject closestEnemy = FindClosestEnemy();
-        if (closestEnemy != null)
-        {
-            Vector3 direction = (closestEnemy.transform.position - aimTransform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            aimTransform.eulerAngles = new Vector3(0, 0, angle - 90);
-        }
-    }
 
-    private GameObject FindClosestEnemy()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        closestEnemy = null;
-        float closestDistance = Mathf.Infinity;
-        Vector3 position = transform.position;
 
-        foreach (GameObject enemy in enemies)
-        {
-            float distance = Vector3.Distance(position, enemy.transform.position);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestEnemy = enemy;
-            }
-        }
 
-        return closestEnemy;
-    }
 }

@@ -39,7 +39,7 @@ public class RoomManager : MonoBehaviour
         currentNode = startNode;
         RoomNode newNode = startNode;
 
-        newNode = AddLinearRooms(newNode, RoomNode.RoomType.EnemyRoom, 5, false);
+        newNode = AddLinearRooms(newNode, RoomNode.RoomType.EnemyRoom, 2, false);
         newNode = AddLinearRooms(newNode, RoomNode.RoomType.Leaflutter, 1, false);
     }
 
@@ -49,8 +49,26 @@ public class RoomManager : MonoBehaviour
     public void InitializeRoom()
     {
         DestroyRoom();
-        int[,] grid = currentNode.tileGrid;
 
+        if (currentNode.type == RoomNode.RoomType.Leaflutter)
+        {
+            SpawnLeaflutterBoss();
+        }
+        else
+        {
+            SpawnRoomDecorationsAndEnemies();
+        }
+    }
+    private void SpawnLeaflutterBoss()
+    {
+        GameObject enemy = Instantiate(enemyPrefabs[4], new Vector3(0, 0, 0), Quaternion.identity);
+        EnemyController enemyController = enemy.GetComponent<EnemyController>();
+        enemyController.sceneManager = this.sceneManager;
+        enemyController.roomManager = this;
+    }
+    private void SpawnRoomDecorationsAndEnemies()
+    {
+        int[,] grid = currentNode.tileGrid;
         int width = grid.GetLength(0);
         int height = grid.GetLength(1);
 
@@ -58,27 +76,29 @@ public class RoomManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
+                int tile = grid[x, y];
+                Vector3 worldPos = RoomNodeGridPositionToWorldPosition(x, y, width, height);
 
-                if (grid[x, y] == 1)
+                if (tile == 1)
                 {
-                    GameObject grass = Instantiate(decorationPrefabs[0], RoomNodeGridPositionToWorldPosition(x, y, width, height), Quaternion.identity);
+                    GameObject grass = Instantiate(decorationPrefabs[0], worldPos, Quaternion.identity);
                     grass.transform.SetParent(decorationParentObject, false);
                     grass.GetComponent<TilemapObjectManager>().player = sceneManager.heroGameObject.transform;
                     instantiatedObjects.Add(grass);
                 }
-                else if (grid[x, y] == 2)
+                else if (tile == 2)
                 {
-                    int enemyNum = Random.Range(0, enemyPrefabs.Length - 1);
-                    GameObject enemy = Instantiate(enemyPrefabs[enemyNum], RoomNodeGridPositionToWorldPosition(x, y, width, height), Quaternion.identity);
+                    int enemyNum = Random.Range(0, enemyPrefabs.Length - 2);
+                    GameObject enemy = Instantiate(enemyPrefabs[enemyNum], worldPos, Quaternion.identity);
                     EnemyController enemyController = enemy.GetComponent<EnemyController>();
                     enemyController.sceneManager = this.sceneManager;
                     enemyController.roomManager = this;
-
                 }
-
             }
         }
     }
+
+
     public void InitializePortals()
     {
 

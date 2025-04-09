@@ -7,6 +7,7 @@ public abstract class EnemyController : MonoBehaviour
     public float currentHealth;
     public float attackTimer;
 
+    public bool canPatrol;
     public float patrolRadius = 2.5f;
     public float patrolSpeed = 2f;
     public float patrolPauseTime = 1f;
@@ -40,7 +41,7 @@ public abstract class EnemyController : MonoBehaviour
             Mathf.Cos(angle * Mathf.Deg2Rad),
             Mathf.Sin(angle * Mathf.Deg2Rad)
         ) * radius;
-
+        canPatrol = true;
     }
 
     public virtual void Update()
@@ -68,7 +69,9 @@ public abstract class EnemyController : MonoBehaviour
 
     public virtual void HandleMovement()
     {
-        if (player == null || stats == null) return;
+        if (player == null || stats == null) {
+            return;
+        } 
 
         float distance = Vector2.Distance(transform.position, player.position);
         if (distance >= 1.5f)
@@ -126,7 +129,7 @@ public abstract class EnemyController : MonoBehaviour
         if (flashEffect != null && !flashEffect.activeInHierarchy)
         {
             flashEffect.SetActive(true);
-            flashEffectTimer = 0.1f;
+            flashEffectTimer = 0.05f;
         }
     }
 
@@ -146,28 +149,32 @@ public abstract class EnemyController : MonoBehaviour
 
     public void Patrol()
     {
-        if (isWaiting)
+        if (canPatrol)
         {
-            patrolWaitTimer -= Time.deltaTime;
-            if (patrolWaitTimer <= 0f)
+            if (isWaiting)
             {
-                PickNewPatrolTarget();
-                isWaiting = false;
+                patrolWaitTimer -= Time.deltaTime;
+                if (patrolWaitTimer <= 0f)
+                {
+                    PickNewPatrolTarget();
+                    isWaiting = false;
+                }
+                return;
             }
-            return;
+
+            float dist = Vector2.Distance(transform.position, currentPatrolTarget);
+            if (dist < 0.1f)
+            {
+                isWaiting = true;
+                patrolWaitTimer = patrolPauseTime;
+            }
+            else
+            {
+                Vector2 dir = (currentPatrolTarget - transform.position).normalized;
+                transform.position += (Vector3)(dir * patrolSpeed * Time.deltaTime);
+            }
         }
 
-        float dist = Vector2.Distance(transform.position, currentPatrolTarget);
-        if (dist < 0.1f)
-        {
-            isWaiting = true;
-            patrolWaitTimer = patrolPauseTime;
-        }
-        else
-        {
-            Vector2 dir = (currentPatrolTarget - transform.position).normalized;
-            transform.position += (Vector3)(dir * patrolSpeed * Time.deltaTime);
-        }
     }
 
     public void PickNewPatrolTarget()

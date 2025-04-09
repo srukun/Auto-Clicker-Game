@@ -15,7 +15,7 @@ public class EnemyStats : ScriptableObject
     public float damage;
     public float attackCooldown;
     public float detectionRange;
-
+    public float projectileSpeed;
     [Header("Rewards")]
     public int goldRewarded;
 }

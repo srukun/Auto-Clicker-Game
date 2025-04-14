@@ -282,7 +282,7 @@ MonoBehaviour:
   attackRange: 35
   criticalChance: 30
   criticalMultiplier: 100
-  cooldown: 0
+  cooldown: 0.5
   bonusArmor: 10
   armorPenetrationChance: 0
   lifestealOnKill: 3

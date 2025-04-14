@@ -36,6 +36,8 @@ public class ToombloomController : EnemyController
             float angle = baseAngle + offset;
             Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             GameObject bullet = Instantiate(bulletPrefab, transform.position + (Vector3)(dir * 0.1f), Quaternion.identity);
+            bullet.GetComponent<ProjectileController>().target = "Hero";
+
             bullet.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
         }
     }

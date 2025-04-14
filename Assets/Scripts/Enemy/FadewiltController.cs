@@ -35,6 +35,8 @@ public class FadewiltController : EnemyController
             Vector3 spawnPos = transform.position + (Vector3)(dir * 0.2f);
 
             GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+            bullet.GetComponent<ProjectileController>().target = "Hero";
+
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.velocity = dir * bulletSpeed;
 

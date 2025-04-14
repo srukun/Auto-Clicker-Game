@@ -4,7 +4,7 @@ public class ProjectileController : MonoBehaviour
 {
     public float lifetime = 10f;
     private float timer;
-
+    public string target;
     void Start()
     {
         timer = lifetime;
@@ -21,12 +21,13 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Hero")
+        if (collision.transform.tag == target)
         {
             Hero hero = collision.gameObject.GetComponent<HeroController>().hero;
             hero.health -= 10;
             collision.gameObject.GetComponent<HeroController>().healthbar.SetHealth(hero.health, hero.maxHealth);
+            Destroy(gameObject);
+
         }
-        Destroy(gameObject);
     }
 }

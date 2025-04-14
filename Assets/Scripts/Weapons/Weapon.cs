@@ -37,11 +37,10 @@ public class Weapon : MonoBehaviour
 
     public virtual void Update()
     {
-        Aim();
+        AimAtMouse();
         {
             shootTimer -= Time.deltaTime;
         }
-        AimAtMouse();
         if (Input.GetButton("Fire1"))
         {
             TryPrimaryAttack();
@@ -76,9 +75,14 @@ public class Weapon : MonoBehaviour
     {
         if (projectilePrefab != null)
         {
-            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-            projectile.GetComponent<Rigidbody2D>().AddForce(firePoint.up * 10f, ForceMode2D.Impulse);
+            Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 dir = (mousePos - firePoint.position).normalized;
             
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            projectile.GetComponent<ProjectileController>().target = "Enemy";
+
+            projectile.GetComponent<Rigidbody2D>().velocity = dir * 10f;
+
         }
         else if (slashEffectPrefab != null)
         {
@@ -94,8 +98,7 @@ public class Weapon : MonoBehaviour
         Vector2 direction = (mousePosition - player.position).normalized;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        angle -= 45f;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Euler(0, 0, angle - 45);
     }
     public virtual void SecondaryAttack()
     {

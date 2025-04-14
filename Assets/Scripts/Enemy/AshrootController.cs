@@ -59,6 +59,8 @@ public class AshrootController : EnemyController
         Vector2 offsetDirection = new Vector2(Mathf.Cos(finalAngle * Mathf.Deg2Rad), Mathf.Sin(finalAngle * Mathf.Deg2Rad));
 
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        bullet.GetComponent<ProjectileController>().target = "Hero";
+
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = offsetDirection.normalized * projectileSpeed;
     }

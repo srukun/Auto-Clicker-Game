@@ -86,6 +86,8 @@ public class LeaflutterController : EnemyController
             {
                 Vector2 direction = (player.position - transform.position).normalized;
                 GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                proj.GetComponent<ProjectileController>().target = "Hero";
+
                 proj.GetComponent<Rigidbody2D>().velocity = direction * 4f;
             }
             attackTimer = stats.attackCooldown;

@@ -35,6 +35,8 @@ public class PetalbiteController : EnemyController
 
         Vector2 direction = (player.position - transform.position).normalized;
         GameObject bullet = Instantiate(bulletPrefab, transform.position + (Vector3)(direction * 0.2f), Quaternion.identity);
+        bullet.GetComponent<ProjectileController>().target = "Hero";
+
         bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
 
         isWindingUp = false;

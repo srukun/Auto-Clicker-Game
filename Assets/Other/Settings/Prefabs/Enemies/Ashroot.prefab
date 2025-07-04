@@ -203,7 +203,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -235,6 +235,7 @@ MonoBehaviour:
   player: {fileID: 0}
   currentHealth: 0
   attackTimer: 0
+  canPatrol: 0
   patrolRadius: 2.5
   patrolSpeed: 2
   patrolPauseTime: 1
@@ -251,6 +252,7 @@ MonoBehaviour:
   moveOffset: {x: 0, y: 0}
   healthBar: {fileID: 7070914375281102153}
   damagePopupPrefab: {fileID: 7541021367932431506, guid: 42596f232fdecb44db7aa93db934bb2e, type: 3}
+  initialAgroDelay: 1.15
   bulletPrefab: {fileID: 3441699339392822848, guid: 4682a4cdfd243414796fbdb49ac2b49d, type: 3}
   projectileSpeed: 6
 --- !u!1001 &6759965155772770237

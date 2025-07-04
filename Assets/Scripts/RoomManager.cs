@@ -177,24 +177,3 @@ public class RoomManager : MonoBehaviour
 
 }
 
-/*GameObject enemy = Instantiate(enemyPrefabs[4], new Vector3(0, 0, -6), Quaternion.identity);
-EnemyController enemyController = enemy.GetComponent<EnemyController>();
-enemyController.sceneManager = this.sceneManager;
-enemyController.roomManager = this;
-enemy.GetComponent<DarkMountController>().returnHomePortal = this.returnHomePortal;*/
-
-/*int enemyNum = Random.Range(0, enemyPrefabs.Length - 1);
-GameObject enemy = Instantiate(enemyPrefabs[enemyNum], GetSpawnLocation(true), Quaternion.identity);
-EnemyController enemyController = enemy.GetComponent<EnemyController>();
-enemyController.sceneManager = this.sceneManager;
-enemyController.roomManager = this;*/
-
-/*Vector2 gridPos = GetRandomEmptyTile();
-
-Vector3 worldPos = new Vector3(gridPos.x, gridPos.y, -4);
-
-
-GameObject grass = Instantiate(grassPrefab, worldPos, Quaternion.identity);
-grass.transform.SetParent(tilemapParent.transform, false);
-grass.GetComponent<TilemapObjectManager>().player = sceneManager.heroGameObject.transform;
-occupiedTiles.Add(gridPos);*/

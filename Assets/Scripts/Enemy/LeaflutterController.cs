@@ -116,8 +116,8 @@ public class LeaflutterController : EnemyController
         {
             float angle = spiralAngle;
             Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-            GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            proj.GetComponent<Rigidbody2D>().velocity = dir * 5f;
+            GameObject bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = dir * 5f;
 
             spiralAngle += 15f;
             if (spiralAngle >= 360f)

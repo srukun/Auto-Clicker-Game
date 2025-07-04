@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
     public HeroController player;
     public float shootTimer;
     public Camera mainCamera;
-
+    public Transform aim;
     public enum Type { Sword, Bow, Dagger }
 
     public virtual void Start()
@@ -37,66 +37,68 @@ public class Weapon : MonoBehaviour
 
     public virtual void Update()
     {
-        Aim();
-        {
-            shootTimer -= Time.deltaTime;
-        }
+        shootTimer -= Time.deltaTime;
+
         AimAtMouse();
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && shootTimer <= 0)
         {
-            TryPrimaryAttack();
+            PrimaryAttack();
+            shootTimer = cooldown;
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButton("Fire2"))
         {
             SecondaryAttack();
         }
     }
 
-    public virtual void Aim()
-    {
-        if (firePoint == null || mainCamera == null) return;
 
-        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePos - firePoint.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        firePoint.eulerAngles = new Vector3(0f, 0f, angle - 90f);
-    }
 
-    public virtual void TryPrimaryAttack()
-    {
-        if (shootTimer <= 0f)
-        {
-            PrimaryAttack();
-            shootTimer = cooldown;
-        }
-    }
 
     public virtual void PrimaryAttack()
     {
-        if (projectilePrefab != null)
+        if ((projectilePrefab != null || slashEffectPrefab != null) && shootTimer <= 0f)
         {
-            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-            projectile.GetComponent<Rigidbody2D>().AddForce(firePoint.up * 10f, ForceMode2D.Impulse);
-            
-        }
-        else if (slashEffectPrefab != null)
-        {
-            Instantiate(slashEffectPrefab, firePoint.position, firePoint.rotation);
-            
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = Mathf.Abs(mainCamera.transform.position.z);
+            Vector3 worldMousePos = mainCamera.ScreenToWorldPoint(mousePosition);
+            Vector2 direction = (worldMousePos - transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            Quaternion rotationToMouse = Quaternion.Euler(0, 0, angle);
+
+            if (projectilePrefab != null)
+            {
+                rotationToMouse = Quaternion.Euler(0, 0, angle - 45f);
+                GameObject projectile = Instantiate(projectilePrefab, firePoint.position, rotationToMouse);
+                Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+                rb.velocity = direction * 10f;
+            }
+
+            if (slashEffectPrefab != null)
+            {
+
+            }
+
         }
     }
+
     private void AimAtMouse()
     {
         if (mainCamera == null || player == null) return;
 
-        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - player.position).normalized;
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = Mathf.Abs(mainCamera.transform.position.z);
+
+        Vector3 worldMousePos = mainCamera.ScreenToWorldPoint(mousePosition);
+        Vector2 direction = (worldMousePos - transform.position).normalized;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        angle -= 45f;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        aim.rotation = Quaternion.Euler(0, 0, angle);
+
+
     }
+
     public virtual void SecondaryAttack()
     {
         

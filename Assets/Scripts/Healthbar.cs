@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ public class Healthbar : MonoBehaviour
     [SerializeField] private RectTransform fillImage;
     [SerializeField] private RectTransform damageFillImage;
     [SerializeField] private float trailSpeed = 10000f;
-
+    public TextMeshProUGUI healthText;
     private float targetFill = 1f;
     private float maxWidth;
 
@@ -25,6 +26,10 @@ public class Healthbar : MonoBehaviour
         Vector2 fillSize = fillImage.sizeDelta;
         fillSize.x = maxWidth * targetFill;
         fillImage.sizeDelta = fillSize;
+        if(healthText != null) 
+        {
+            healthText.SetText(current + "/" + max);
+        }
     }
 
     private void Update()

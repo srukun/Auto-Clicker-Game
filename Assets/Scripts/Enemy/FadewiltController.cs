@@ -12,7 +12,7 @@ public class FadewiltController : EnemyController
         transform.position += (Vector3)(direction * (stats.moveSpeed * 0.4f) * Time.deltaTime);
     }
 
-    public override void HandleAttack()
+    public void HandleAttack()
     {
         attackTimer -= Time.deltaTime;
 

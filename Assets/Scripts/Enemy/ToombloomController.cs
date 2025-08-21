@@ -13,7 +13,7 @@ public class ToombloomController : EnemyController
         transform.position += new Vector3(move, 0f, 0f) * Time.deltaTime;
     }
 
-    public override void HandleAttack()
+    public void HandleAttack()
     {
         attackTimer -= Time.deltaTime;
 

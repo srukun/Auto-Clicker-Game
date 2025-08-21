@@ -13,7 +13,7 @@ public class AshrootController : EnemyController
 
 
 
-    public override void HandleAttack()
+    public void HandleAttack()
     {
         if (!isFlurrying)
         {

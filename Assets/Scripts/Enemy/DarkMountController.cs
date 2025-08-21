@@ -5,7 +5,7 @@ using UnityEngine;
 public class DarkMountController : EnemyController
 {
     public GameObject returnHomePortal;
-    public override void HandleAttack()
+    public void HandleAttack()
     {
 
     }

@@ -17,7 +17,7 @@ public class PetalbiteController : EnemyController
         }
     }
 
-    public override void HandleAttack()
+    public void HandleAttack()
     {
         attackTimer -= Time.deltaTime;
 

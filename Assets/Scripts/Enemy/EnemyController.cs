@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     public EnemyStats stats;
     public Transform player;
@@ -80,7 +80,10 @@ public abstract class EnemyController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, stats.moveSpeed * Time.deltaTime);
         }
     }
-    public abstract void HandleAttack();
+    public void HandleAttack()
+    {
+
+    }
 
     public virtual void TakeDamage(float amount)
     {

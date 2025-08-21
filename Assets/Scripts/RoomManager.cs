@@ -24,23 +24,23 @@ public class RoomManager : MonoBehaviour
 
 
     public List<GameObject> instantiatedObjects;
-    public RoomNode startNode;
-    public RoomNode currentNode;
+    public MapNode startNode;
+    public MapNode currentNode;
 
     public void Start()
     {
-        InitializeRoomNodes();
-        InitializeRoom();
-        InitializePortals();
+        //InitializeRoomNodes();
+        //InitializeRoom();
+        //InitializePortals();
     }
     public void InitializeRoomNodes()
     {
-        startNode = new RoomNode(RoomNode.RoomType.StartRoom, true);
+        startNode = new MapNode(MapNode.RoomType.StartRoom, true);
         currentNode = startNode;
-        RoomNode newNode = startNode;
+        MapNode newNode = startNode;
 
-        newNode = AddLinearRooms(newNode, RoomNode.RoomType.EnemyRoom, 2, false);
-        newNode = AddLinearRooms(newNode, RoomNode.RoomType.Leaflutter, 1, false);
+        newNode = AddLinearRooms(newNode, MapNode.RoomType.EnemyRoom, 2, false);
+        newNode = AddLinearRooms(newNode, MapNode.RoomType.Leaflutter, 1, false);
     }
 
 
@@ -50,7 +50,7 @@ public class RoomManager : MonoBehaviour
     {
         DestroyRoom();
 
-        if (currentNode.type == RoomNode.RoomType.Leaflutter)
+        if (currentNode.type == MapNode.RoomType.Leaflutter)
         {
             SpawnLeaflutterBoss();
         }
@@ -81,10 +81,10 @@ public class RoomManager : MonoBehaviour
 
                 if (tile == 1)
                 {
-                    GameObject grass = Instantiate(decorationPrefabs[0], worldPos, Quaternion.identity);
+/*                    GameObject grass = Instantiate(decorationPrefabs[0], worldPos, Quaternion.identity);
                     grass.transform.SetParent(decorationParentObject, false);
                     grass.GetComponent<TilemapObjectManager>().player = sceneManager.heroGameObject.transform;
-                    instantiatedObjects.Add(grass);
+                    instantiatedObjects.Add(grass);*/
                 }
                 else if (tile == 2)
                 {
@@ -101,8 +101,6 @@ public class RoomManager : MonoBehaviour
 
     public void InitializePortals()
     {
-
-
         if (currentNode.top != null)
         {
             InstantiatePortal(new Vector3(0, 7.5f, 0)).direction = "top";
@@ -131,13 +129,13 @@ public class RoomManager : MonoBehaviour
         portalManager.currentNode = currentNode;
         return portalManager;
     }
-    public RoomNode AddLinearRooms(RoomNode start, RoomNode.RoomType type, int count, bool isCleared)
+    public MapNode AddLinearRooms(MapNode start, MapNode.RoomType type, int count, bool isCleared)
     {
-        RoomNode current = start;
+        MapNode current = start;
 
         for (int i = 0; i < count; i++)
         {
-            RoomNode next = new RoomNode(type, isCleared);
+            MapNode next = new MapNode(type, isCleared);
             current.top = next;
             current = next;
         }

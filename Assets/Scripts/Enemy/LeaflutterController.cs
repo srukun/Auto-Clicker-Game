@@ -56,7 +56,7 @@ public class LeaflutterController : EnemyController
         HandleMovement();
     }
 
-    public override void HandleAttack()
+    public void HandleAttack()
     {
         if (currentPhase == Phase.Phase1)
         {

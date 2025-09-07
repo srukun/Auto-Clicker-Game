@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Sheepskin Bow
-  type: 0
-  baseDamage: 10
+  type: 1
+  baseDamage: 20
   attackSpeed: 10
   attackRange: 35
   criticalChance: 30

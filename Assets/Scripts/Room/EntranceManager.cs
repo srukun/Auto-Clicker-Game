@@ -25,29 +25,20 @@ public class EntranceManager : MonoBehaviour
     {
         
     }
-    public void UpdateEntrances()
+    public void OpenEntrance()
     {
         if(mapManager.currentRoom.top != null)
         {
             topWall.SetActive(false);
             topEntrance.SetActive(true);
         }
-        else
+    }
+    public void LockEntrance()
+    {
+        if (mapManager.currentRoom.top != null)
         {
             topWall.SetActive(true);
             topEntrance.SetActive(false);
         }
-        if(mapManager.currentRoom.bottom != null)
-        {
-            bottomWall.SetActive(false);
-            bottomEntrance.SetActive(true);
-        }
-        else
-        {
-            bottomWall.SetActive(true);
-            bottomEntrance.SetActive(false);
-        }
-
-
     }
 }

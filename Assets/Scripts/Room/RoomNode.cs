@@ -8,7 +8,7 @@ public class RoomNode
 
     public RoomNode top;
     public RoomNode bottom;
-
+    public String biome;
 
 
 

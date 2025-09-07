@@ -4,7 +4,7 @@ public class HeroProjectileController : MonoBehaviour
 {
     public float lifetime = 10f;
     private float timer;
-
+    public Weapon weapon;
     void Start()
     {
         timer = lifetime;
@@ -23,7 +23,7 @@ public class HeroProjectileController : MonoBehaviour
     {
         if (collision.transform.tag == "Enemy")
         {
-            collision.transform.GetComponent<EnemyController>().TakeDamage(5);
+            collision.transform.GetComponent<EnemyController>().TakeDamage(weapon.baseDamage);
             Destroy(gameObject);
         }
     }

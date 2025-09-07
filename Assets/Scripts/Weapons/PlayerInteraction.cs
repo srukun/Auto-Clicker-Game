@@ -9,6 +9,8 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject nearbyWeapon;
     public SceneManager sceneManager;
     public GameObject weaponDrop;
+
+    public EntranceManager entranceManager;
     void Update()
     {
         Interact();
@@ -24,6 +26,7 @@ public class PlayerInteraction : MonoBehaviour
                     DropWeapon(nearbyWeapon.transform, currentWeaponObject.GetComponentInChildren<SteelsEdge>().weaponName);
                 }
                 PickupWeapon(nearbyWeapon);
+                entranceManager.OpenEntrance();
             }
         }
     }

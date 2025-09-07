@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6706045720892440148}
   - component: {fileID: 120341920813738120}
   m_Layer: 0
-  m_Name: OrangeExplosionEffect
+  m_Name: DefaultExplosionEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

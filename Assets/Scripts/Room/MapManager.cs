@@ -24,7 +24,7 @@ public class MapManager : MonoBehaviour
     {
         GenerateMap();
         currentRoom = map[0];
-        entranceManager.UpdateEntrances();
+        
         CreateRoomInScene();
     }
 
@@ -80,18 +80,39 @@ public class MapManager : MonoBehaviour
                 }
                 if (currentRoom.tileGrid[x, y] == 4)
                 {
-                    GameObject enemy = Instantiate(instantiatedObjects[4], worldPos, Quaternion.identity);
+                    SpawnEnemies(currentRoom);
                 }
                 worldPos.y += 1;
             }
             worldPos.x += 1;
         }
     }
-    public void SpawnEnemies()
+    public void SpawnSingleEnemy(List<GameObject> biomeEnemiesList)
     {
-        GameObject enemy = Instantiate(biomeOneEnemies[UnityEngine.Random.Range(0, biomeOneEnemies.Count)], new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject enemy = Instantiate(biomeEnemiesList[UnityEngine.Random.Range(0, biomeEnemiesList.Count-1)], new Vector3(0, 0, 0), Quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
         enemyController.sceneManager = this.sceneManager;
+    }
+    public void SpawnEnemies(RoomNode node)
+    {
+        if(node.roomType != RoomNode.RoomType.EnemyRoom)
+        {
+            return;
+        }
+
+        if(node.biome == "Slime Village")
+        {
+            SpawnSingleEnemy(biomeOneEnemies);
+        }
+        if (node.biome == "Mushroom Forest")
+        {
+            SpawnSingleEnemy(biomeTwoEnemies);
+
+        }
+        if (node.biome == "Cybernetic Enclave")
+        {
+            SpawnSingleEnemy(biomeThreeEnemies);
+        }
     }
     public void DropItems()
     {
@@ -112,7 +133,7 @@ public class MapManager : MonoBehaviour
     {
         RoomNode startRoom = new RoomNode(RoomNode.RoomType.StartRoom);
         startRoom.DefineRoom();
-
+        startRoom.biome = "Slime Village";
         map.Add(startRoom);
 
 
@@ -120,33 +141,44 @@ public class MapManager : MonoBehaviour
 
 
         int roomsCreated = 1;
-        int totalRooms = 30;
+        int totalRooms = 12;
 
         while (roomsCreated <= totalRooms)
         {
 
             RoomNode.RoomType type = RoomNode.RoomType.EnemyRoom;
 
-            if (roomsCreated == 8 || roomsCreated == 18 || roomsCreated == 28)
+            if (roomsCreated == 13 || roomsCreated == 18 || roomsCreated == 28)//8 18 // 28
             {
                 type = RoomNode.RoomType.ShopRoom;
             }
-            if (roomsCreated == 10)
+            if (roomsCreated == 4)
             {
                 type = RoomNode.RoomType.BossRoom1;
             }
-            if (roomsCreated == 20)
+            if (roomsCreated == 8)
             {
                 type = RoomNode.RoomType.BossRoom2;
             }
-            if (roomsCreated == 30)
+            if (roomsCreated == 12)
             {
-                type = RoomNode.RoomType.BossRoom2;
+                type = RoomNode.RoomType.BossRoom3;
             }
-            
+
 
             RoomNode next = new RoomNode(type);
-
+            if (roomsCreated < 4)
+            {
+                next.biome = "Slime Village";
+            }
+            if (roomsCreated < 8 && roomsCreated >= 4)
+            {
+                next.biome = "Mushroom Forest";
+            }
+            if (roomsCreated < 12 && roomsCreated >= 8)
+            {
+                next.biome = "Cybernetic Enclave";
+            }
             current.top = next;
             next.bottom = current;
             current = next;
@@ -161,39 +193,17 @@ public class MapManager : MonoBehaviour
 
 
 
-    private  (int, int) BiasedDirectionChooser()
-    {
-        float roll = UnityEngine.Random.value;
-        if(roll < 0.7f)
-        {
-            return (0, 1);
-        }
-        else if(roll < 0.85f)
-        {
-            return (0, -1);
-        }
-        return (-1, 0);
-    }
+
     public void ChangeRoom(RoomNode nextRoom)
     {
         if (currentRoom == nextRoom) return;
-
-        DestroyCurrentRoomObjects();
-
-        SpawnRoom(nextRoom);
-
         currentRoom = nextRoom;
+        CreateRoomInScene();
     }
 
-    private void SpawnRoom(RoomNode nextRoom)
-    {
-        throw new NotImplementedException();
-    }
 
-    private void DestroyCurrentRoomObjects()
-    {
-        throw new NotImplementedException();
-    }
+
+
     public Vector3 RoomNodeGridPositionToWorldPosition(int x, int y, int width, int height)
     {
         return new Vector3(x - width / 2 + 0.5f, y - height / 2 + 0.5f, 0f);

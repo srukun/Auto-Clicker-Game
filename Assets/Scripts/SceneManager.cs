@@ -23,7 +23,8 @@ public class SceneManager : MonoBehaviour
     public GameObject mapManagerObject;
     public RoomManager roomManager;
     public ScreenTransitionManager transitionManager;
-
+    public EntranceManager entranceManager;
+    public MapManager mapManager;
     //Minimap
     public GameObject mapObject;
     public GameObject mapNodeObject;
@@ -81,6 +82,7 @@ public class SceneManager : MonoBehaviour
         sceneCamera.GetComponent<CameraFollowScript>().player = heroObject.transform;
         heroObject.GetComponent<HeroController>().camera = sceneCamera.GetComponent<Camera>();
         heroObject.GetComponent<PlayerInteraction>().sceneManager = this;
+        heroObject.GetComponent<PlayerInteraction>().entranceManager = entranceManager;
     }
     public void WeaponSetup(GameObject currentWeaponObject)
     {
@@ -183,5 +185,11 @@ public class SceneManager : MonoBehaviour
         return clearedRooms.ContainsKey(roomPosition) && clearedRooms[roomPosition];
     }
 
-
+    public void OpenEntranceIfAllEnemiesDefeated()
+    {
+        if(mapManager.currentRoom.numberOfEnemies <= 0)
+        {
+            entranceManager.OpenEntrance();
+        }
+    }
 }

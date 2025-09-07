@@ -117,6 +117,8 @@ public class EnemyController : MonoBehaviour
         if (sceneManager != null)
         {
             sceneManager.IncreaseEarnedGold(stats.goldRewarded);
+            sceneManager.mapManager.currentRoom.numberOfEnemies--;
+            sceneManager.OpenEntranceIfAllEnemiesDefeated();
         }
 
         if (roomManager != null)

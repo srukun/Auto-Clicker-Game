@@ -73,6 +73,7 @@ public class Weapon : MonoBehaviour
                 GameObject projectile = Instantiate(projectilePrefab, firePoint.position, rotationToMouse);
                 Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
                 rb.velocity = direction * 10f;
+                projectile.GetComponent<HeroProjectileController>().weapon = this;
             }
 
             if (slashEffectPrefab != null)

@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PortalManager : MonoBehaviour
 {
-    public RoomManager roomManager;
+    public EntranceManager entranceManager;
     public SceneManager sceneManager;
     public MapNode currentNode;
     public string direction;
     public MapManager mapManager;
 
+    private void Start()
+    {
+        
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -32,13 +36,8 @@ public class PortalManager : MonoBehaviour
             hero.transform.position = new Vector3(0, -8f, -2);
             mapManager.currentRoom = mapManager.currentRoom.top;
         }
-        else if (direction == "bottom")
-        {
-            hero.transform.position = new Vector3(0, -10f, -2);
-            mapManager.currentRoom = mapManager.currentRoom.bottom;
-        }
 
-
-        mapManager.CreateRoomInScene();
+        entranceManager.LockEntrance();
+        mapManager.ChangeRoom(mapManager.currentRoom.top);
     }
 }

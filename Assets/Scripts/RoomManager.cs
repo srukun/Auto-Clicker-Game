@@ -125,7 +125,7 @@ public class RoomManager : MonoBehaviour
         instantiatedObjects.Add(portal);
         PortalManager portalManager = portal.GetComponent<PortalManager>();
         portalManager.sceneManager = sceneManager;
-        portalManager.roomManager = this;
+        //portalManager.entranceManager = this;
         portalManager.currentNode = currentNode;
         return portalManager;
     }

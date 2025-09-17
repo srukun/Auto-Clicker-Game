@@ -55,8 +55,7 @@ public class MapManager : MonoBehaviour
         int height = currentRoom.tileGrid.GetLength(1);
 
         Vector2 worldPos = new Vector2(-9, -9);
-
-
+        
         for (int x = 0; x < width; x++)
         {
             worldPos.y = -9;
@@ -80,20 +79,55 @@ public class MapManager : MonoBehaviour
                 }
                 if (currentRoom.tileGrid[x, y] == 4)
                 {
-                    SpawnEnemies(currentRoom);
+                    SpawnEnemies(currentRoom, x, y);
+
+
                 }
                 worldPos.y += 1;
             }
             worldPos.x += 1;
         }
+        SpawnBoss1();
+        SpawnBoss2();
+        SpawnBoss3();
     }
-    public void SpawnSingleEnemy(List<GameObject> biomeEnemiesList)
+
+    public void SpawnBoss1() { 
+        
+        if(currentRoom.roomType == RoomNode.RoomType.BossRoom1)
+        {
+            SpawnSingleEnemy(biomeOneEnemies, 3);
+        }
+    }
+    public void SpawnBoss2()
     {
-        GameObject enemy = Instantiate(biomeEnemiesList[UnityEngine.Random.Range(0, biomeEnemiesList.Count-1)], new Vector3(0, 0, 0), Quaternion.identity);
+
+        if (currentRoom.roomType == RoomNode.RoomType.BossRoom2)
+        {
+            SpawnSingleEnemy(biomeTwoEnemies, 3);
+        }
+    }
+    public void SpawnBoss3()
+    {
+
+        if (currentRoom.roomType == RoomNode.RoomType.BossRoom3)
+        {
+            SpawnSingleEnemy(biomeThreeEnemies, 4);
+        }
+    }
+    public void SpawnSingleEnemy(List<GameObject> biomeEnemiesList, int x, int y)
+    {
+        GameObject enemy = Instantiate(biomeEnemiesList[UnityEngine.Random.Range(0, biomeEnemiesList.Count - 1)], RoomNodeGridPositionToWorldPosition(x, y, 20, 20), Quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
         enemyController.sceneManager = this.sceneManager;
     }
-    public void SpawnEnemies(RoomNode node)
+    public void SpawnSingleEnemy(List<GameObject> biomeEnemiesList, int enemyNumber)
+    {
+        GameObject enemy = Instantiate(biomeEnemiesList[enemyNumber], new Vector3(0, 0, 0), Quaternion.identity);
+        EnemyController enemyController = enemy.GetComponent<EnemyController>();
+        enemyController.sceneManager = this.sceneManager;
+    }
+    public void SpawnEnemies(RoomNode node, int x, int y)
     {
         if(node.roomType != RoomNode.RoomType.EnemyRoom)
         {
@@ -102,16 +136,16 @@ public class MapManager : MonoBehaviour
 
         if(node.biome == "Slime Village")
         {
-            SpawnSingleEnemy(biomeOneEnemies);
+            SpawnSingleEnemy(biomeOneEnemies, x, y);
         }
         if (node.biome == "Mushroom Forest")
         {
-            SpawnSingleEnemy(biomeTwoEnemies);
+            SpawnSingleEnemy(biomeTwoEnemies, x, y);
 
         }
         if (node.biome == "Cybernetic Enclave")
         {
-            SpawnSingleEnemy(biomeThreeEnemies);
+            SpawnSingleEnemy(biomeThreeEnemies, x, y);
         }
     }
     public void DropItems()
@@ -141,7 +175,10 @@ public class MapManager : MonoBehaviour
 
 
         int roomsCreated = 1;
+
         int totalRooms = 12;
+
+
 
         while (roomsCreated <= totalRooms)
         {
@@ -152,6 +189,7 @@ public class MapManager : MonoBehaviour
             {
                 type = RoomNode.RoomType.ShopRoom;
             }
+
             if (roomsCreated == 4)
             {
                 type = RoomNode.RoomType.BossRoom1;
@@ -179,13 +217,14 @@ public class MapManager : MonoBehaviour
             {
                 next.biome = "Cybernetic Enclave";
             }
+
             current.top = next;
             next.bottom = current;
             current = next;
+            current.DefineRoom();
             map.Add(current);
 
             roomsCreated++;
-            current.DefineRoom();
         }
     }
 

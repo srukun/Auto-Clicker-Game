@@ -33,11 +33,10 @@ public class PortalManager : MonoBehaviour
 
         if (direction == "top")
         {
-            hero.transform.position = new Vector3(0, -8f, -2);
-            mapManager.currentRoom = mapManager.currentRoom.top;
         }
-
+        hero.transform.position = new Vector3(0, -8f, -2);
         entranceManager.LockEntrance();
         mapManager.ChangeRoom(mapManager.currentRoom.top);
+        Debug.Log(mapManager.currentRoom.roomType);
     }
 }

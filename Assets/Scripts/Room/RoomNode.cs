@@ -9,17 +9,24 @@ public class RoomNode
     public RoomNode top;
     public RoomNode bottom;
     public String biome;
+    public int numberOfEnemies;
 
 
 
     public int[,] tileGrid = new int[20, 20]; // 0 = empty 1 = walls 2 = grass 3 = enemy
-    public int numberOfEnemies;
     public Dictionary<String, Vector3> itemDrops;
     public RoomNode(RoomType roomType)
     {
         this.roomType = roomType;
         itemDrops = new Dictionary<String, Vector3>();
-        numberOfEnemies = UnityEngine.Random.Range(2, 5);
+        if (roomType == RoomType.EnemyRoom)
+        {
+            numberOfEnemies = UnityEngine.Random.Range(2, 5);
+        }
+        if (roomType == RoomType.BossRoom1 || roomType == RoomType.BossRoom2 || roomType == RoomType.BossRoom3)
+        {
+            numberOfEnemies = 1;
+        }
     }
     public enum RoomType
     {
@@ -73,7 +80,6 @@ public class RoomNode
     }
     public void DefineEnemy()
     {
-        numberOfEnemies = UnityEngine.Random.Range(2, 5);
         int width = tileGrid.GetLength(0);
         int height = tileGrid.GetLength(1);
 

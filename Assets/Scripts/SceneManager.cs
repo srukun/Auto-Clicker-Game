@@ -189,6 +189,7 @@ public class SceneManager : MonoBehaviour
     {
         if(mapManager.currentRoom.numberOfEnemies <= 0)
         {
+            Debug.Log("Here");
             entranceManager.OpenEntrance();
         }
     }

@@ -25,8 +25,6 @@ public class ProjectileController : MonoBehaviour
             Hero hero = collision.gameObject.GetComponent<HeroController>().hero;
             hero.health -= 10;
             collision.gameObject.GetComponent<HeroController>().healthbar.SetHealth(hero.health, hero.maxHealth);
-
-
         }
     }
 }

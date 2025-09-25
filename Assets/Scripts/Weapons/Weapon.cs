@@ -92,12 +92,18 @@ public class Weapon : MonoBehaviour
         mousePosition.z = Mathf.Abs(mainCamera.transform.position.z);
 
         Vector3 worldMousePos = mainCamera.ScreenToWorldPoint(mousePosition);
-        Vector2 direction = (worldMousePos - transform.position).normalized;
+        Vector2 direction = (worldMousePos - transform.position);
 
+        // 1. Stop rotating if mouse is too close
+        if (direction.magnitude < 0.2f) return;
+
+        // 2. Get target angle
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        aim.rotation = Quaternion.Euler(0, 0, angle);
 
-
+        // 3. Smooth rotation (optional, tweak speed)
+        float rotationSpeed = 720f; // degrees per second
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+        aim.rotation = Quaternion.RotateTowards(aim.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     public virtual void SecondaryAttack()

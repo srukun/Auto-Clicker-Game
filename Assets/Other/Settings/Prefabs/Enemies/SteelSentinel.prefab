@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674355b61ebae4944937a85a52fe566c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 11400000, guid: d8fe50888219b9246b97bf96c25de58a, type: 2}
   player: {fileID: 0}
   currentHealth: 0
   attackTimer: 0

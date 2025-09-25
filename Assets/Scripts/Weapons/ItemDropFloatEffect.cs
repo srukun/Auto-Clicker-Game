@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponDropFloatEffect : MonoBehaviour
+public class ItemDropFloatEffect : MonoBehaviour
 {
     private bool goingUp = true;
     private float floatSpeed = 0.5f;

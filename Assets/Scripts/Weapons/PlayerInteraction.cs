@@ -28,8 +28,17 @@ public class PlayerInteraction : MonoBehaviour
                 PickupWeapon(nearbyWeapon);
                 entranceManager.OpenEntrance();
             }
+
+            ModCard nearbyCard = GetComponentInChildren<HUDModCardManager>().nearbyCard;
+            if (nearbyCard != null) 
+            {
+                Debug.Log(nearbyCard);
+                GetComponentInChildren<HUDModCardManager>().EquipCard();
+            }
         }
     }
+
+
 
     public void SetNearbyWeapon(GameObject weapon)
     {

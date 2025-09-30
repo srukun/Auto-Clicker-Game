@@ -27,8 +27,9 @@ public class ModCardManager : MonoBehaviour
             {
                 equipText.SetActive(true);
             }
-            collision.GetComponentInChildren<HUDModCardManager>().currentCard = card;
-            Debug.Log(collision.GetComponentInChildren<HUDModCardManager>().currentCard.modCardName);
+            collision.GetComponentInChildren<HUDModCardManager>().nearbyCard = card;
+            collision.GetComponentInChildren<HUDModCardManager>().parentObj = transform.root.gameObject;
+            DisplayCardTooltip();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -39,10 +40,11 @@ public class ModCardManager : MonoBehaviour
             {
                 equipText.SetActive(false);
             }
-            collision.GetComponentInChildren<HUDModCardManager>().currentCard = null;
+            collision.GetComponentInChildren<HUDModCardManager>().nearbyCard = null;
+            HideCardToolTip();
         }
     }
-    void OnMouseEnter()
+    void DisplayCardTooltip()
     {
         if (!modCardUI.activeInHierarchy)
         {
@@ -52,7 +54,7 @@ public class ModCardManager : MonoBehaviour
         pos.y -= 2.5f;
         equipText.transform.position = pos;
     }
-    void OnMouseExit()
+    void HideCardToolTip()
     {
         if (modCardUI.activeInHierarchy)
         {

@@ -27,6 +27,7 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 PickupWeapon(nearbyWeapon);
                 entranceManager.OpenEntrance();
+
             }
 
             ModCard nearbyCard = GetComponentInChildren<HUDModCardManager>().nearbyCard;
@@ -77,6 +78,8 @@ public class PlayerInteraction : MonoBehaviour
         Destroy(weaponPickup.gameObject);
         currentWeaponObject = weapon;
         sceneManager.WeaponSetup(currentWeaponObject);
+        GetComponentInChildren<HUDModCardManager>().EquipWeapon(currentWeaponObject.GetComponentInChildren<SpriteRenderer>().sprite);
+
 
     }
 

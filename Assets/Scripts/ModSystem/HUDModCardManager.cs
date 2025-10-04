@@ -11,6 +11,7 @@ public class HUDModCardManager : MonoBehaviour
     public GameObject[] modSlots;
     public GameObject[] modSlotsBackground;
     public GameObject parentObj;
+    public GameObject weaponSlot;
     void Start()
     {
         cards = new ModCard[3];
@@ -69,5 +70,11 @@ public class HUDModCardManager : MonoBehaviour
 
 
 
+    }
+
+    public void EquipWeapon(Sprite sprite)
+    {
+        weaponSlot.SetActive(true);
+        weaponSlot.GetComponent<Image>().sprite = sprite;
     }
 }
